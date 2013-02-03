@@ -1,0 +1,22 @@
+body {
+	
+}
+
+#modeller {
+	
+}
+
+#toolbar {
+	width: 200px;
+	min-height: 600px;
+	float: left;
+}
+
+canvas {
+	float: left;
+	background-color: #fff;
+}
+
+.toolbox_element {
+	width: 200px;
+}
