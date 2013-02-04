@@ -4,18 +4,6 @@ var camera;
 var scene;
 var canvas;
 
-// init application
-
-function init() {
-    colliderapp = $("#colliderapp");
-    init_ui();
-
-    grahics = JsGraphics();
-    graphis.init(800, 600);
-
-    //init_gl(800, 600);
-}
-
 // init user interface
 
 function init_ui() {
@@ -33,61 +21,29 @@ function init_ui() {
     });
 
     $("#button_add").click(add_element);
-    $("#button_delete").click(add_element);
-    $("#button_resize").click(resize);
 }
 
-// working with 3d canvas
-
-function init_gl(width, height) {
-    camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
-    camera.position.z = 1000;
-
-    scene = new THREE.Scene();
-
-    renderer = new THREE.CanvasRenderer();
-    renderer.setSize(width, height);
-
-    colliderapp.append(renderer.domElement);
-}
-
-function add_element(type) {
-    switch(type){
-        case "graphene":
-            break;
-        case "nanotube":
-            break;
-    }
-    /*var geometry = new THREE.CubeGeometry( 200, 200, 200 );
-    var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-    var object = new THREE.Mesh(geometry, material);
-    object.position.x = 10;
-    objects.push(object);
-    scene.add(object);*/
-}
-
-function resize(width, height) {
-    //camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
-    //camera.position.z = 1000;
-
-    //scene = new THREE.Scene();
-
-   // renderer = new THREE.CanvasRenderer();
-    //renderer.setSize(width, height);
-}
+// methods
 
 function animate() {
-    // note: three.js includes requestAnimationFrame shim
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
+}
 
-    for(var i = 0; i < objects.length; i++) {
-        //objects[i].rotation.x += 0.01;
-        //objects[i].rotation.y += 0.01;
-        //objects[i].rotation.z += 0.01;
-    }
-    //
+function add_element() {
 
-    renderer.render( scene, camera );
+}
+
+
+// init application
+function init() {
+    init_ui();
+    
+    grahics = new JsGraphics();
+    grahics.init(600, 600);
+    $("#colliderapp")[0].appendChild(grahics.canvas);
+
+    grahics.clearBackground("#fff");
+    grahics.drawPoint(10, 10, 0, 10);
 }
 
 // main
