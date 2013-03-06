@@ -1,53 +1,164 @@
-var colliderapp;
-var objects = new Array();
-var camera;
-var scene;
-var canvas;
+function initGL(canvas) {
+    var names = [
+    "webgl",
+    "experimental-webgl",
+    "webkit-3d",
+    "moz-webgl"];
 
-// init user interface
+    gl = null;
+    for (var ii = 0; ii < names.length; ++ii) {
+        try {
+            gl = canvas.getContext(names[ii]);
+        } catch(e) {}
+        if (gl) {
+            break;
+        }
+    }
 
-function init_ui() {
-    $("#combobox_type").kendoComboBox({
-        dataTextField: "text",
-        dataValueField: "value",
-        dataSource: [
-            { text: "nanotube", value: "1" },
-            { text: "graphene", value: "2" },
-            { text: "fulleren", value: "3" }
-        ],
-        filter: "contains",
-        suggest: true,
-        index: 3
-    });
+    if(gl) {
+        gl.viewportWidth = canvas.width;
+        gl.viewportHeight = canvas.height;
 
-    $("#button_add").click(add_element);
+        gl.clearColor(0, 0, 0, 1);
+        gl.clearDepth(1,0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LEQUAL);
+    }
+
+    return gl;
 }
 
-// methods
-
-function animate() {
-    requestAnimationFrame(animate);
-}
-
-function add_element() {
-
-}
-
-
-// init application
-function init() {
-    init_ui();
+function drawCube(gl) {
+     var vertices = [
+     // Front face
+     -1.0, -1.0,  1.0,
+    1.0, -1.0,  1.0,
+    1.0,  1.0,  1.0,
+    -1.0,  1.0,  1.0,
     
-    grahics = new JsGraphics();
-    grahics.init(600, 600);
-    $("#colliderapp")[0].appendChild(grahics.canvas);
+    // Back face
+    -1.0, -1.0, -1.0,
+    -1.0,  1.0, -1.0,
+    1.0,  1.0, -1.0,
+    1.0, -1.0, -1.0,
+    
+    // Top face
+    -1.0,  1.0, -1.0,-1.0,  1.0,  1.0,
+    1.0,  1.0,  1.0,
+    1.0,  1.0, -1.0,
+    
+    // Bottom face
+    -1.0, -1.0, -1.0,
+    1.0, -1.0, -1.0,
+    1.0, -1.0,  1.0,
+    -1.0, -1.0,  1.0,
+    
+    // Right face
+    1.0, -1.0, -1.0,
+    1.0,  1.0, -1.0,
+    1.0,  1.0,  1.0,
+    1.0, -1.0,  1.0,
+    
+    // Left face
+    -1.0, -1.0, -1.0,
+    -1.0, -1.0,  1.0,
+    -1.0,  1.0,  1.0,
+    -1.0,  1.0, -1.0
+    ];
 
-    grahics.clearBackground("#fff");
-    grahics.drawPoint(10, 10, 0, 10);
+    var colors = [
+    [1.0,  1.0,  1.0,  1.0],    // Front face: white
+    [1.0,  0.0,  0.0,  1.0],    // Back face: red
+    [0.0,  1.0,  0.0,  1.0],    // Top face: green
+    [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
+    [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
+    [1.0,  0.0,  1.0,  1.0]     // Left face: purple
+    ];
+ 
+    var generatedColors = [];
+     
+    for (j=0; j<6; j++) {
+        var c = colors[j];
+        for (var i=0; i<4; i++) {
+            generatedColors = generatedColors.concat(c);
+        }
+    }
+     
+    cubeVerticesColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesColorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(generatedColors), gl.STATIC_DRAW);
+
+    cubeVerticesIndexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVerticesIndexBuffer);
+     
+    // This array defines each face as two triangles, using the
+    // indices into the vertex array to specify each triangle's
+    // position.
+     
+    var cubeVertexIndices = [
+      0,  1,  2,      0,  2,  3,    // front
+      4,  5,  6,      4,  6,  7,    // back
+      8,  9,  10,     8,  10, 11,   // top
+      12, 13, 14,     12, 14, 15,   // bottom
+      16, 17, 18,     16, 18, 19,   // right
+      20, 21, 22,     20, 22, 23    // left
+    ]
+     
+    // Now send the element array to GL
+     
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+        new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVerticesIndexBuffer);
+    //setMatrixUniforms();
+    gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
 }
 
-// main
-$(document).ready(function() {
-    init();
+var test2 = function() {
+
+    var colorBackground = 0x000000;
+    var colorAtoms = 0xff0000;
+    var colorConnections = 0xffff00;
+
+    var canvas = $('#canvas')[0];
+    var gl = initGL(canvas);
+
+
+
+
+
+    var mousePressed = false;
+    canvas.onmousedown = function() {
+        mousePressed = true;
+    };
+
+    document.onmouseup = function() {
+        mousePressed = false;
+    };
+
+    document.onmousemove = function() {
+        if(mousePressed) {
+
+        }
+    };
+
+
+
+
+    
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        drawCube(gl);
+    }
+
     animate();
+} 
+
+$(document).ready(function() {
+    test2();
 });

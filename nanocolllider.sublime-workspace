@@ -4,12 +4,52 @@
 		"selected_items":
 		[
 			[
-				"ge",
-				"geometry"
+				"obje",
+				"objects"
+			],
+			[
+				"ini",
+				"initialize"
+			],
+			[
+				"colo",
+				"colorFog"
+			],
+			[
+				"sc",
+				"Scene"
 			],
 			[
 				"add",
-				"add_element"
+				"appendChild"
+			],
+			[
+				"obj",
+				"objects"
+			],
+			[
+				"posi",
+				"position"
+			],
+			[
+				"po",
+				"position"
+			],
+			[
+				"ad",
+				"add"
+			],
+			[
+				"Me",
+				"MeshBasicMaterial"
+			],
+			[
+				"v",
+				"Vector3"
+			],
+			[
+				"ge",
+				"geometry"
 			],
 			[
 				"se",
@@ -28,34 +68,34 @@
 	"buffers":
 	[
 		{
-			"file": "src/index.html",
-			"settings":
-			{
-				"buffer_size": 842,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/jsgraphics.js",
-			"settings":
-			{
-				"buffer_size": 1625,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/canvasmol.js",
-			"settings":
-			{
-				"buffer_size": 49828,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 931,
+				"buffer_size": 6302,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/index.html",
+			"settings":
+			{
+				"buffer_size": 511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/css/mainstyle.css",
+			"settings":
+			{
+				"buffer_size": 52,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/glmol/js/GLmol.js",
+			"settings":
+			{
+				"buffer_size": 66398,
 				"line_ending": "Unix"
 			}
 		}
@@ -88,6 +128,25 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/glmol/js/GLmol.js",
+		"/home/ewgenius/Projects/workspace/NanoColliderWeb/src/js/collider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/WebGLFramework.js",
+		"/home/ewgenius/Desktop/structures/buckytube.sdf",
+		"/home/ewgenius/Archive/data/forge/client/net/minecraftforge/client/IItemRenderer.java",
+		"/home/ewgenius/.minecraft/lastlogin",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/test.js",
+		"/home/ewgenius/Projects/web/soft-shadow-mapping-master/build.py",
+		"/home/ewgenius/Projects/web/nanocollider/src/index_.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/jquery.mousewheel.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/three.min.js",
+		"/home/ewgenius/.minecraft/options.txt",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/detector.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgraphics.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/canvasmol.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgeometry.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/Projects/web/nanocollider/index.html",
@@ -123,6 +182,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"drawAtomsAsSphere",
+			"this.modelGroup",
+			"this.scene",
+			"THREE.Sp",
+			"mouse",
+			"drawCyl",
+			"drawCyly",
+			"container",
+			"##",
+			"stdout",
+			"tty",
+			"edit\"",
+			"send",
+			"CylinderGeometry",
+			"lookAt",
+			"sphereGeometry",
+			"this.context",
+			"Vector3",
 			"getCon",
 			"3d\"",
 			"3d",
@@ -140,8 +217,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"//",
+			"this.gl",
+			"Vector4"
 		],
-		"reverse": true,
+		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -150,23 +230,51 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/index.html",
+					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 842,
+						"buffer_size": 6302,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								774,
-								774
+								1210,
+								1210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 405.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/index.html",
+					"settings":
+					{
+						"buffer_size": 511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								483,
+								483
 							]
 						],
 						"settings":
@@ -181,28 +289,27 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "src/js/jsgraphics.js",
+					"buffer": 2,
+					"file": "src/css/mainstyle.css",
 					"settings":
 					{
-						"buffer_size": 1625,
+						"buffer_size": 52,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								735,
-								735
+								45,
+								45
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -210,61 +317,33 @@
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 2,
-					"file": "src/js/canvasmol.js",
-					"settings":
-					{
-						"buffer_size": 49828,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								24848,
-								24848
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7789.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 3,
-					"file": "src/js/collider.js",
+					"file": "/home/ewgenius/Projects/web/glmol/js/GLmol.js",
 					"settings":
 					{
-						"buffer_size": 931,
+						"buffer_size": 66398,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								817,
-								817
+								2105,
+								2105
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 3,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -300,7 +379,7 @@
 		"cols":
 		[
 			0.0,
-			0.583392395975,
+			0.495958406369,
 			1.0
 		],
 		"rows":
@@ -320,7 +399,7 @@
 	},
 	"replace":
 	{
-		"height": 0.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
