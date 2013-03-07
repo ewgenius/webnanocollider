@@ -4,16 +4,52 @@
 		"selected_items":
 		[
 			[
+				"init",
+				"initShaders"
+			],
+			[
+				"so",
+				"sourceVertex"
+			],
+			[
+				"shade",
+				"shaderVertex"
+			],
+			[
+				"shader",
+				"shaderScript"
+			],
+			[
+				"dra",
+				"drawCube"
+			],
+			[
+				"mou",
+				"mousePressed"
+			],
+			[
+				"colo",
+				"colorBackground"
+			],
+			[
+				"re",
+				"requestAnimationFrame"
+			],
+			[
+				"can",
+				"canvas"
+			],
+			[
+				"canvas",
+				"canvas_container"
+			],
+			[
 				"obje",
 				"objects"
 			],
 			[
 				"ini",
 				"initialize"
-			],
-			[
-				"colo",
-				"colorFog"
 			],
 			[
 				"sc",
@@ -58,10 +94,6 @@
 			[
 				"col",
 				"colliderapp"
-			],
-			[
-				"init",
-				"init_ui"
 			]
 		]
 	},
@@ -71,7 +103,7 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 6302,
+				"buffer_size": 2555,
 				"line_ending": "Unix"
 			}
 		},
@@ -79,28 +111,12 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/css/mainstyle.css",
-			"settings":
-			{
-				"buffer_size": 52,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ewgenius/Projects/web/glmol/js/GLmol.js",
-			"settings":
-			{
-				"buffer_size": 66398,
+				"buffer_size": 327,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/User/chrome_run.sublime-build",
+	"build_system": "Packages/User/localserver.sublime-build",
 	"command_palette":
 	{
 		"height": 285.0,
@@ -128,6 +144,13 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/nanocollider/src/shaders/shader.vs",
+		"/home/ewgenius/Projects/web/nanocollider/src/shaders/fs.shader",
+		"/home/ewgenius/Projects/web/nanocollider/src/shaders/vs.shader",
+		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
+		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
+		"/home/ewgenius/.config/sublime-text-2/Packages/User/localserver.sublime-build",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
 		"/home/ewgenius/Projects/web/glmol/js/GLmol.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderWeb/src/js/collider.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
@@ -148,7 +171,6 @@
 		"/home/ewgenius/Projects/web/nanocollider/src/js/canvasmol.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgeometry.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
-		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/Projects/web/nanocollider/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/css/mainstyle.css",
 		"/home/ewgenius/Projects/web/nanocollider/data/animation.xml",
@@ -182,6 +204,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"makePerspective",
+			"   ",
 			"drawAtomsAsSphere",
 			"this.modelGroup",
 			"this.scene",
@@ -217,6 +241,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"    ",
 			"//",
 			"this.gl",
 			"Vector4"
@@ -238,25 +263,25 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 6302,
+						"buffer_size": 2555,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1210,
-								1210
+								1467,
+								1467
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 405.0,
+						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -266,15 +291,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 511,
+						"buffer_size": 327,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								483,
-								483
+								327,
+								327
 							]
 						],
 						"settings":
@@ -284,66 +309,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/css/mainstyle.css",
-					"settings":
-					{
-						"buffer_size": 52,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								45,
-								45
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "/home/ewgenius/Projects/web/glmol/js/GLmol.js",
-					"settings":
-					{
-						"buffer_size": 66398,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2105,
-								2105
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -368,18 +333,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.495958406369,
 			1.0
 		],
 		"rows":
