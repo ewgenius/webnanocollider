@@ -1,10 +1,20 @@
-attribute vec3 aVertexPosition;
-attribute vec4 aVertexColor;
-uniform mat4 uMVMatrix;
-uniform mat4 uPMatrix;
-varying lowp vec4 vColor;
-
-void main(void) {
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-	vColor = aVertexColor;
-}
+<script>
+	uniform mat4 u_modelViewProjMatrix;
+    uniform mat4 u_normalMatrix;
+    uniform vec3 lightDir;
+ 
+    attribute vec3 vNormal;
+    attribute vec4 vTexCoord;
+    attribute vec4 vPosition;
+ 
+    varying float v_Dot;
+    varying vec2 v_texCoord;
+ 
+    void main()
+    {
+        gl_Position = u_modelViewProjMatrix * vPosition;
+        v_texCoord = vTexCoord.st;
+        vec4 transNormal = u_normalMatrix * vec4(vNormal, 1);
+        v_Dot = max(dot(transNormal.xyz, lightDir), 0.0);
+    }
+</script>

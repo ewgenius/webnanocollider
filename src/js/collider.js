@@ -70,8 +70,6 @@ function initShaders(gl) {
         alert("Could not initialise shaders");
 
     //gl.useProgram(shader);
-
-
 }
 
 
@@ -81,7 +79,6 @@ var mvMatrixStack = [];
 function mvPushMatrix(m) {
     if(m) {
         mvPushMatrix.push(m.dup());
-
     }
 }
 
@@ -142,6 +139,10 @@ var test2 = function() {
     setInterval(animate, 100);
 } 
 
+var test1 = function() {
+    var gl = initWebGl("canvas");
+}
+
 $(document).ready(function() {
-    test2();
+    test1();
 });
