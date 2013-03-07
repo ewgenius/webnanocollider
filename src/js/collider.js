@@ -1,3 +1,5 @@
+var host = document.URL;
+
 function initGL(canvas) {
     var names = [
     "webgl",
@@ -34,7 +36,7 @@ function initShaders(gl) {
 
     $.ajax({
         async: false,
-        url: 'http://192.168.0.199:8000/shaders/shader.vs',
+        url: host + 'shaders/shader.vs',
         success: function (data) {
             sourceVertex = $(data).html();
         },
@@ -43,7 +45,7 @@ function initShaders(gl) {
 
     $.ajax({
         async: false,
-        url: 'http://192.168.0.199:8000/shaders/shader.fs',
+        url: host + 'shaders/shader.fs',
         success: function (data) {
             sourceFragment = $(data).html();
         },
