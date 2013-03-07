@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "/home/ewgenius/Projects/web/nanocollider"
+		},
+		{
+			"path": "/home/ewgenius/Projects/web/webgl_examples"
 		}
 	]
 }
