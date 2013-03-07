@@ -103,7 +103,7 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 2555,
+				"buffer_size": 2543,
 				"line_ending": "Unix"
 			}
 		},
@@ -263,15 +263,15 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 2555,
+						"buffer_size": 2543,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1467,
-								1467
+								2209,
+								2209
 							]
 						],
 						"settings":
@@ -281,7 +281,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
