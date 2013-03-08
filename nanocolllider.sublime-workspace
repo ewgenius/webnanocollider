@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"Nano",
+				"NanoObject"
+			],
+			[
+				"par",
+				"particle"
+			],
+			[
+				"ini",
+				"initializeShaders"
+			],
+			[
+				"Li",
+				"LINK_STATUS"
+			],
+			[
+				"ver",
+				"vertexShader"
+			],
+			[
+				"sha",
+				"shaderProgram"
+			],
+			[
+				"cre",
+				"createProgram"
+			],
+			[
+				"get",
+				"getShader"
+			],
+			[
+				"vec",
+				"vec4"
+			],
+			[
+				"u",
+				"uMVMatrix"
+			],
+			[
+				"dete",
+				"detectCL"
+			],
+			[
 				"init",
 				"initShaders"
 			],
@@ -46,10 +90,6 @@
 			[
 				"obje",
 				"objects"
-			],
-			[
-				"ini",
-				"initialize"
 			],
 			[
 				"sc",
@@ -103,7 +143,7 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 2543,
+				"buffer_size": 1590,
 				"line_ending": "Unix"
 			}
 		},
@@ -111,7 +151,31 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 327,
+				"buffer_size": 819,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
+			"settings":
+			{
+				"buffer_size": 5657,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
+			"settings":
+			{
+				"buffer_size": 8789,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
+			"settings":
+			{
+				"buffer_size": 16390,
 				"line_ending": "Unix"
 			}
 		}
@@ -144,6 +208,7 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/nanocollider/src/js/glMatrix.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/shader.vs",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/fs.shader",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/vs.shader",
@@ -263,15 +328,15 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 2543,
+						"buffer_size": 1590,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2209,
-								2209
+								327,
+								327
 							]
 						],
 						"settings":
@@ -291,21 +356,111 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 327,
+						"buffer_size": 819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								327,
-								327
+								281,
+								281
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
+					"settings":
+					{
+						"buffer_size": 5657,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2166,
+								2166
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
+					"settings":
+					{
+						"buffer_size": 8789,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4580,
+								4580
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1734.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
+					"settings":
+					{
+						"buffer_size": 16390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -333,11 +488,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -379,7 +541,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 252.0,
 	"status_bar_visible": true
 }

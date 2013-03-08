@@ -6,6 +6,9 @@
 		},
 		{
 			"path": "/home/ewgenius/Projects/web/webgl_examples"
+		},
+		{
+			"path": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d"
 		}
 	]
 }

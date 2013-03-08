@@ -1,18 +1,7 @@
-NanoCollider = function() {
 
-    var 
-
-    return {
-
-    };
-
-}();
-
-
-function main() {
-
-}
 
 $(document).ready(function() {
-    main();
+    var collider = new NanoCollider();
+    collider.initialize(document.getElementById('canvas'));
+    collider.start();
 });
