@@ -6,33 +6,12 @@
 		<link rel="stylesheet" href="css/mainstyle.css" type="text/css">
 		<script src="js/jquery.min.js"></script>
 		<script src="js/collider.js"></script>
-		<script src="js/webgl-utils.js"></script>
-		
-		<script src="js/glMatrix.js"></script>
-		<script src="js/J3DI.js"></script>
-		<script src="js/J3DIMath.js"></script>
-
-		<script id="shader-fs" type="x-shader/x-fragment">
-			precision mediump float;
-
-			void main(void) {
-				gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-			}
-		</script>
-
-		<script id="shader-vs" type="x-shader/x-vertex">
-			attribute vec3 aVertexPosition;
-
-			uniform mat4 uMVMatrix;
-			uniform mat4 uPMatrix;
-
-			void main(void) {
-				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-			}
-		</script>
+		<script src="js/three.min.js"></script>
+		<script src="js/detector.js"></script>
+		<script src="js/TrackballControls.js"></script>
 	</head>
 	<body>
-		<canvas id='canvas'></canvas>
+		<div id='collider'></div>
 	</body>
 </html>
 

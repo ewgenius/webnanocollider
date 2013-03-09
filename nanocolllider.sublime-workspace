@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"ro",
+				"rotation"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
 				"Nano",
 				"NanoObject"
 			],
@@ -140,42 +152,26 @@
 	"buffers":
 	[
 		{
-			"file": "src/js/collider.js",
-			"settings":
-			{
-				"buffer_size": 1590,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 819,
+				"buffer_size": 355,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
+			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 5657,
+				"buffer_size": 631,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
+			"file": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
 			"settings":
 			{
-				"buffer_size": 8789,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
-			"settings":
-			{
-				"buffer_size": 16390,
+				"buffer_size": 12043,
 				"line_ending": "Unix"
 			}
 		}
@@ -208,18 +204,24 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/nanocollider/src/js/J3DI.js",
+		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
+		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/webkit/Earth.html",
+		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
+		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
+		"/home/ewgenius/Projects/web/nanocollider/src/css/kendo.common.min.css",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/glMatrix.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/shader.vs",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/fs.shader",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/vs.shader",
-		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/localserver.sublime-build",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
 		"/home/ewgenius/Projects/web/glmol/js/GLmol.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderWeb/src/js/collider.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/WebGLFramework.js",
 		"/home/ewgenius/Desktop/structures/buckytube.sdf",
 		"/home/ewgenius/Archive/data/forge/client/net/minecraftforge/client/IItemRenderer.java",
@@ -269,6 +271,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"renderer",
 			"makePerspective",
 			"   ",
 			"drawAtomsAsSphere",
@@ -320,51 +323,23 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/collider.js",
-					"settings":
-					{
-						"buffer_size": 1590,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								327,
-								327
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 819,
+						"buffer_size": 355,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								281,
-								281
+								335,
+								335
 							]
 						],
 						"settings":
@@ -377,93 +352,63 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/js/collider.js",
+					"settings":
+					{
+						"buffer_size": 631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								398,
+								398
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 2,
-					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
+					"file": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
 					"settings":
 					{
-						"buffer_size": 5657,
+						"buffer_size": 12043,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2166,
-								2166
+								4136,
+								4136
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
-					"settings":
-					{
-						"buffer_size": 8789,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4580,
-								4580
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1734.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
-					"settings":
-					{
-						"buffer_size": 16390,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 900.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -541,7 +486,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 252.0,
 	"status_bar_visible": true
 }
