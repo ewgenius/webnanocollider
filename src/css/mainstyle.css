@@ -3,7 +3,7 @@ html, body {
     height: 100%;
 }
 
-#canvas {
+#collider {
 	width : 100%;
 	min-height: 100%;
 }
