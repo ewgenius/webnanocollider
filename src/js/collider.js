@@ -1,5 +1,6 @@
 var unit = 1;
 var globalscene;
+var atomThikness = 5;
 
 THREE.CoordsPlane = function(n, m, s) {
 	var self = this;
@@ -21,7 +22,7 @@ THREE.CoordsPlane = function(n, m, s) {
 THREE.Atom = function(position, radius) {
 	var self = this;
 	this.name = "atom";
-	this.geometry = new THREE.SphereGeometry(radius, 10, 10);
+	this.geometry = new THREE.SphereGeometry(radius, atomThikness, atomThikness);
 	this.material = new THREE.MeshLambertMaterial({
 		color: 0xff0000
 	});
@@ -57,7 +58,7 @@ THREE.Graphene = function(position, n, m, d) {
 
 	var dy = d / 2;
 	var dx = Math.sqrt(d * d - dy * dy);
-	var width = n * d * 0.75;
+	var width = 2 * m * dx;
 	var height = n * d * 0.75;
 
 	var y = 0;
@@ -65,7 +66,7 @@ THREE.Graphene = function(position, n, m, d) {
 	for(var i = 0; i < n; i++) {
 		self.atoms[i] = new Array(m);
 		for(var j = 0; j < m; j++)
-			self.atoms[i][j] = new THREE.Atom(new THREE.Vector3(0, 0, 0), unit);
+			self.atoms[i][j] = new THREE.Atom(new THREE.Vector3(0, 0, 0), unit / 4);
 	}
 
 	for(var i = 0; i < n; i++) {
@@ -77,7 +78,7 @@ THREE.Graphene = function(position, n, m, d) {
 				self.position.y,
 				self.position.z + y - height / 2
 				);
-			//self.mesh.add(self.atoms[i][j].mesh);
+			self.mesh.add(self.atoms[i][j].mesh);
 			x += 2 * dx;
 			if(i > 0) {
 				self.mesh.add((new THREE.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
@@ -96,6 +97,67 @@ THREE.Graphene = function(position, n, m, d) {
 }
 
 
+THREE.Nanotube = function(position, n, m, d) {
+	var self = this;
+	this.n = n;
+	this.m = m;
+	this.atoms = new Array(n);
+	this.position = position;
+	this.speed = new THREE.Vector3(0, 0, 0);
+	this.mesh = new THREE.Object3D();
+
+	var dy = d / 2;
+	var dx = Math.sqrt(d * d - dy * dy);
+	var width = 2 * m * dx;
+	var height = n * d * 0.75;
+
+	var a = 2 * Math.PI / m;
+	var radius = d / (2 * Math.sin(a / 4));
+
+	var y = 0;
+
+	for(var i = 0; i < n; i++) {
+		self.atoms[i] = new Array(m);
+		for(var j = 0; j < m; j++)
+			self.atoms[i][j] = new THREE.Atom(new THREE.Vector3(0, 0, 0), unit / 4);
+	}
+
+	for(var i = 0; i < n; i++) {
+		var r = (i + 1) % 4 < 2 ? 0 : 1;
+		var x = 0;
+
+		for(var j = 0; j < m; j++) {
+
+			var alpha = j * a + r * Math.PI / m;
+			x = radius * Math.sin(alpha);
+			z = radius * Math.cos(alpha);
+
+			self.atoms[i][j].mesh.position = new THREE.Vector3(
+				self.position.x + x,
+				self.position.y + y - height / 2,
+				self.position.z + z
+				);
+			self.mesh.add(self.atoms[i][j].mesh);
+			if(i > 0) {
+				self.mesh.add((new THREE.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+
+				if (i % 2 == 1 && r == 0)
+					self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j - 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+				
+				if (i % 2 == 1 && r == 1)
+					self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j + 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+			}
+		}
+		y += i % 2 == 0 ? dy : d;  
+	}
+
+	this.update = function() {
+		self.mesh.position.add(self.speed);
+		self.mesh.rotation.y += 0.01;
+	}
+}
+
+
 
 var Nanocollider = function() {
 	var self = this;
@@ -107,6 +169,13 @@ var Nanocollider = function() {
 
 	var objects = [];
 	var root = null;
+
+	var collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
+	var dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
+	var overlappingPairCache = new Ammo.btDbvtBroadphase();
+	var solver = new Ammo.btSequentialImpulseConstraintSolver();
+	var dynamicsWorld = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+	dynamicsWorld.setGravity(new Ammo.btVector3(0, -10, 0));
 
 	this.initialize = function(container, width, height) {
 		renderer = new THREE.WebGLRenderer();
@@ -162,8 +231,8 @@ $(document).ready(function() {
 		collider.initialize(document.getElementById('collider'), 600, 600);
 		collider.start();
 
-		collider.addObject(new THREE.CoordsPlane(15, 15, unit));
-		collider.addObject(new THREE.Graphene(new THREE.Vector3(0, 0, 0), 40, 20, unit));
+		//collider.addObject(new THREE.CoordsPlane(15, 15, unit));
+		collider.addObject(new THREE.Nanotube(new THREE.Vector3(0, 0, 0), 20, 15, unit));
 	} else {
 		var warning = Detector.getWebGLErrorMessage();
 		document.getElementById('collider').appendChild(warning);

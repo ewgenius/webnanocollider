@@ -4,6 +4,70 @@
 		"selected_items":
 		[
 			[
+				"coll",
+				"collisionConfiguration"
+			],
+			[
+				"Nano",
+				"Nanotube"
+			],
+			[
+				"atom",
+				"atomThikness"
+			],
+			[
+				"spe",
+				"speed"
+			],
+			[
+				"ini",
+				"initialized"
+			],
+			[
+				"ob",
+				"objects"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"ad",
+				"addObject"
+			],
+			[
+				"obj",
+				"object"
+			],
+			[
+				"ve",
+				"Vector3"
+			],
+			[
+				"lo",
+				"lookAt"
+			],
+			[
+				"came",
+				"camera"
+			],
+			[
+				"ren",
+				"render"
+			],
+			[
+				"render",
+				"renderer"
+			],
+			[
+				"re",
+				"renderer"
+			],
+			[
+				"set",
+				"setSize"
+			],
+			[
 				"ro",
 				"rotation"
 			],
@@ -16,16 +80,8 @@
 				"margin-top"
 			],
 			[
-				"Nano",
-				"NanoObject"
-			],
-			[
 				"par",
 				"particle"
-			],
-			[
-				"ini",
-				"initializeShaders"
 			],
 			[
 				"Li",
@@ -88,10 +144,6 @@
 				"colorBackground"
 			],
 			[
-				"re",
-				"requestAnimationFrame"
-			],
-			[
 				"can",
 				"canvas"
 			],
@@ -112,20 +164,12 @@
 				"appendChild"
 			],
 			[
-				"obj",
-				"objects"
-			],
-			[
 				"posi",
 				"position"
 			],
 			[
 				"po",
 				"position"
-			],
-			[
-				"ad",
-				"add"
 			],
 			[
 				"Me",
@@ -155,7 +199,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 355,
+				"buffer_size": 496,
 				"line_ending": "Unix"
 			}
 		},
@@ -163,20 +207,20 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 631,
+				"buffer_size": 6513,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
+			"file": "/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
 			"settings":
 			{
-				"buffer_size": 12043,
+				"buffer_size": 3004,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/User/localserver.sublime-build",
+	"build_system": "Packages/User/chrome_run.sublime-build",
 	"command_palette":
 	{
 		"height": 285.0,
@@ -204,6 +248,11 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Graphene.java",
+		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Nanotube.java",
+		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
+		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/js/controls/FirstPersonControls.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/J3DI.js",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/webkit/Earth.html",
@@ -211,7 +260,6 @@
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
 		"/home/ewgenius/Projects/web/nanocollider/src/css/kendo.common.min.css",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/glMatrix.js",
@@ -271,6 +319,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"    ",
+			"this",
+			"    ",
 			"renderer",
 			"makePerspective",
 			"   ",
@@ -309,6 +360,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"	",
+			"self",
+			"	",
 			"    ",
 			"//",
 			"this.gl",
@@ -331,15 +385,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 355,
+						"buffer_size": 496,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								335,
-								335
+								282,
+								282
 							]
 						],
 						"settings":
@@ -358,24 +412,25 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 631,
+						"buffer_size": 6513,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								398,
-								398
+								4353,
+								4353
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -388,27 +443,28 @@
 			[
 				{
 					"buffer": 2,
-					"file": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
+					"file": "/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
 					"settings":
 					{
-						"buffer_size": 12043,
+						"buffer_size": 3004,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4136,
-								4136
+								319,
+								319
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 900.0,
+						"translation.y": 351.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -444,7 +500,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.466325036603,
 			1.0
 		],
 		"rows":
