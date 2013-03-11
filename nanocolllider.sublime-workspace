@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"add",
+				"addObject"
+			],
+			[
+				"bo",
+				"body"
+			],
+			[
+				"obje",
+				"object"
+			],
+			[
+				"z",
+				"z"
+			],
+			[
+				"get",
+				"getWorldTransform"
+			],
+			[
+				"bt",
+				"btVector3"
+			],
+			[
+				"start",
+				"startTransform"
+			],
+			[
+				"up",
+				"updatePhysics"
+			],
+			[
+				"gro",
+				"groundTransform"
+			],
+			[
+				"Mes",
+				"MeshLambertMaterial"
+			],
+			[
+				"ini",
+				"initializePhysics"
+			],
+			[
 				"coll",
 				"collisionConfiguration"
 			],
@@ -18,10 +62,6 @@
 			[
 				"spe",
 				"speed"
-			],
-			[
-				"ini",
-				"initialized"
 			],
 			[
 				"ob",
@@ -100,10 +140,6 @@
 				"createProgram"
 			],
 			[
-				"get",
-				"getShader"
-			],
-			[
 				"vec",
 				"vec4"
 			],
@@ -152,16 +188,8 @@
 				"canvas_container"
 			],
 			[
-				"obje",
-				"objects"
-			],
-			[
 				"sc",
 				"Scene"
-			],
-			[
-				"add",
-				"appendChild"
 			],
 			[
 				"posi",
@@ -207,7 +235,7 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 6513,
+				"buffer_size": 8394,
 				"line_ending": "Unix"
 			}
 		},
@@ -217,6 +245,15 @@
 			{
 				"buffer_size": 3004,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "'use strict';\n\n// http://paulirish.com/2011/requestanimationframe-for-smart-animating/\n// shim layer with setTimeout fallback\nwindow['requestAnimFrame'] = (function(){\n  return  window.requestAnimationFrame       || \n          window.webkitRequestAnimationFrame || \n          window.mozRequestAnimationFrame    || \n          window.oRequestAnimationFrame      || \n          window.msRequestAnimationFrame     || \n          function(/* function */ callback, /* DOMElement */ element){\n            window.setTimeout(callback, 1000 / 60);\n          };\n})();\n\n(function() {\n	\n	var projector, renderer, scene, light, camera,\n		initScene, render, main, updateBoxes,\n		createBox, now, lastbox = 0, boxes = [];\n	\n	initScene = function() {\n		var collisionConfiguration, dispatcher, overlappingPairCache, solver, // Ammo world\n			ground, groundShape, groundTransform, groundMass, localInertia, motionState, rbInfo, groundAmmo;\n		\n		\n		// Projector\n		projector = new THREE.Projector();\n		\n		\n		// Renderer\n		renderer = new THREE.WebGLRenderer({antialias: true});\n		renderer.shadowMapEnabled = true;\n		renderer.shadowMapSoft = true;\n		renderer.setSize( window.innerWidth, window.innerHeight );\n		document.getElementById( 'viewport' ).appendChild( renderer.domElement );\n		\n		\n		// Scene\n		scene = new THREE.Scene();\n		\n		\n		// Light\n		light = new THREE.DirectionalLight( 0xFFFFFF );\n		light.position.set( 40, 40, 25 );\n		light.target.position.copy( scene.position );\n		light.castShadow = true;\n		light.shadowCameraLeft = -25;\n		light.shadowCameraTop = -25;\n		light.shadowCameraRight = 25;\n		light.shadowCameraBottom = 25;\n		light.shadowBias = -.0001\n		scene.add( light );\n		\n		\n		// Ammo world\n		collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();\n		dispatcher = new Ammo.btCollisionDispatcher( collisionConfiguration );\n		overlappingPairCache = new Ammo.btDbvtBroadphase();\n		solver = new Ammo.btSequentialImpulseConstraintSolver();\n		scene.world = new Ammo.btDiscreteDynamicsWorld( dispatcher, overlappingPairCache, solver, collisionConfiguration );\n		scene.world.setGravity(new Ammo.btVector3(0, -12, 0));\n		\n		\n		// Camera\n		camera = new THREE.PerspectiveCamera(\n			35,\n			window.innerWidth / window.innerHeight,\n			1,\n			1000\n		);\n		camera.position.set( 60, 50, 60 );\n		camera.lookAt( scene.position );\n		scene.add( camera );\n		\n		\n		// Ground\n		ground = new THREE.Mesh(\n			new THREE.PlaneGeometry( 50, 50 ),\n			new THREE.MeshLambertMaterial({ color: 0xDDDDDD })\n		);\n		ground.receiveShadow = true;\n		ground.rotation.x = -Math.PI / 2;\n		scene.add( ground );\n		\n		\n		// Ground physics\n		groundShape = new Ammo.btBoxShape(new Ammo.btVector3( 25, 1, 25 ));\n		groundTransform = new Ammo.btTransform();\n		groundTransform.setIdentity();\n		groundTransform.setOrigin(new Ammo.btVector3( 0, -1, 0 ));\n		\n		groundMass = 0;\n		localInertia = new Ammo.btVector3(0, 0, 0);\n		motionState = new Ammo.btDefaultMotionState( groundTransform );\n		rbInfo = new Ammo.btRigidBodyConstructionInfo( groundMass, motionState, groundShape, localInertia );\n		groundAmmo = new Ammo.btRigidBody( rbInfo );\n		scene.world.addRigidBody( groundAmmo );\n	};\n	\n	createBox = function() {\n		var box, position_x, position_z,\n			mass, startTransform, localInertia, boxShape, motionState, rbInfo, boxAmmo;\n		\n		position_x = Math.random() * 10 - 5;\n		position_z = Math.random() * 10 - 5;\n		\n		// Create 3D box model\n		box = new THREE.Mesh(\n			new THREE.CubeGeometry( 3, 3, 3),\n			new THREE.MeshLambertMaterial({ opacity: 0, transparent: true })\n		);\n		box.material.color.setRGB( Math.random() * 100 / 100, Math.random() * 100 / 100, Math.random() * 100 / 100 );\n		box.castShadow = true;\n		box.receiveShadow = true;\n		box.useQuaternion = true;\n		scene.add( box );\n		\n		new TWEEN.Tween(box.material).to({opacity: 1}, 500).start();\n		\n		// Create box physics model\n		mass = 3 * 3 * 3;\n		startTransform = new Ammo.btTransform();\n		startTransform.setIdentity();\n		startTransform.setOrigin(new Ammo.btVector3( position_x, 20, position_z ));\n		\n		localInertia = new Ammo.btVector3(0, 0, 0);\n		\n		boxShape = new Ammo.btBoxShape(new Ammo.btVector3( 1.5, 1.5, 1.5 ));\n		boxShape.calculateLocalInertia( mass, localInertia );\n		\n		motionState = new Ammo.btDefaultMotionState( startTransform );\n		rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, boxShape, localInertia );\n		boxAmmo = new Ammo.btRigidBody( rbInfo );\n		scene.world.addRigidBody( boxAmmo );\n		\n		boxAmmo.mesh = box;\n		boxes.push( boxAmmo );\n	};\n	\n	updateBoxes = function() {\n		scene.world.stepSimulation( 1 / 60, 5 );\n		var i, transform = new Ammo.btTransform(), origin, rotation;\n		\n		for ( i = 0; i < boxes.length; i++ ) {\n			boxes[i].getMotionState().getWorldTransform( transform );\n			\n			origin = transform.getOrigin();\n			boxes[i].mesh.position.x = origin.x();\n			boxes[i].mesh.position.y = origin.y();\n			boxes[i].mesh.position.z = origin.z();\n			\n			rotation = transform.getRotation();\n			boxes[i].mesh.quaternion.x = rotation.x();\n			boxes[i].mesh.quaternion.y = rotation.y();\n			boxes[i].mesh.quaternion.z = rotation.z();\n			boxes[i].mesh.quaternion.w = rotation.w();\n		};\n	};\n	\n	render = function render() {\n		renderer.render(scene, camera);\n	};\n	\n	main = function main() {\n		\n		// Create a new box every second\n		now = new Date().getTime();\n		if ( now - lastbox > 1000 ) {\n			createBox();\n			lastbox = now;\n		}\n		\n		// Run physics\n		updateBoxes();\n		\n		render();\n		window.requestAnimFrame(main);\n	};\n	\n	window.onload = function() {\n		initScene();\n		TWEEN.start();\n		requestAnimFrame(main);\n	}\n	\n})();",
+			"settings":
+			{
+				"buffer_size": 5546,
+				"line_ending": "Unix",
+				"name": "'use strict';"
 			}
 		}
 	],
@@ -248,6 +285,8 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Applications/blender-2.65a-linux-glibc211-x86_64/2.65/scripts/addons/modules/ui_utils.py",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Graphene.java",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Nanotube.java",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
@@ -258,7 +297,6 @@
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/webkit/Earth.html",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
 		"/home/ewgenius/Projects/web/nanocollider/src/css/kendo.common.min.css",
@@ -319,6 +357,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"bodies",
+			"boxes",
+			" )",
+			"( ",
 			"    ",
 			"this",
 			"    ",
@@ -360,6 +402,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"bodies",
+			")",
+			"(",
 			"	",
 			"self",
 			"	",
@@ -392,8 +437,8 @@
 						"selection":
 						[
 							[
-								282,
-								282
+								321,
+								321
 							]
 						],
 						"settings":
@@ -412,25 +457,24 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 6513,
+						"buffer_size": 8394,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4353,
-								4353
+								3096,
+								3096
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -438,7 +482,7 @@
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -453,8 +497,8 @@
 						"selection":
 						[
 							[
-								319,
-								319
+								859,
+								859
 							]
 						],
 						"settings":
@@ -464,7 +508,34 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 351.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 5546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3849,
+								3849
+							]
+						],
+						"settings":
+						{
+							"auto_name": "'use strict';",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2385.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -500,7 +571,7 @@
 		"cols":
 		[
 			0.0,
-			0.466325036603,
+			0.712579942223,
 			1.0
 		],
 		"rows":

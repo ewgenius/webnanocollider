@@ -20,7 +20,7 @@ THREE.CoordsPlane = function(n, m, s) {
 };
 
 THREE.Atom = function(position, radius) {
-	var self = this;
+	var self = this;	
 	this.name = "atom";
 	this.geometry = new THREE.SphereGeometry(radius, atomThikness, atomThikness);
 	this.material = new THREE.MeshLambertMaterial({
@@ -55,6 +55,8 @@ THREE.Graphene = function(position, n, m, d) {
 	this.position = position;
 	this.speed = new THREE.Vector3(0, 0, 0);
 	this.mesh = new THREE.Object3D();
+
+	this.bodie = null;
 
 	var dy = d / 2;
 	var dx = Math.sqrt(d * d - dy * dy);
@@ -94,8 +96,7 @@ THREE.Graphene = function(position, n, m, d) {
 	this.update = function() {
 		self.position.add(self.speed);
 	}
-}
-
+};
 
 THREE.Nanotube = function(position, n, m, d) {
 	var self = this;
@@ -105,58 +106,67 @@ THREE.Nanotube = function(position, n, m, d) {
 	this.position = position;
 	this.speed = new THREE.Vector3(0, 0, 0);
 	this.mesh = new THREE.Object3D();
+	//this.mesh.useQuaternion = true;
 
-	var dy = d / 2;
-	var dx = Math.sqrt(d * d - dy * dy);
-	var width = 2 * m * dx;
-	var height = n * d * 0.75;
+	// structure
+	(function() {
 
-	var a = 2 * Math.PI / m;
-	var radius = d / (2 * Math.sin(a / 4));
+		var dy = d / 2;
+		var dx = Math.sqrt(d * d - dy * dy);
+		var width = 2 * m * dx;
+		var height = n * d * 0.75;
 
-	var y = 0;
+		self.width = width;
+		self.height = height;
 
-	for(var i = 0; i < n; i++) {
-		self.atoms[i] = new Array(m);
-		for(var j = 0; j < m; j++)
-			self.atoms[i][j] = new THREE.Atom(new THREE.Vector3(0, 0, 0), unit / 4);
-	}
+		var a = 2 * Math.PI / m;
+		var radius = d / (2 * Math.sin(a / 4));
+		var y = 0;
 
-	for(var i = 0; i < n; i++) {
-		var r = (i + 1) % 4 < 2 ? 0 : 1;
-		var x = 0;
 
-		for(var j = 0; j < m; j++) {
-
-			var alpha = j * a + r * Math.PI / m;
-			x = radius * Math.sin(alpha);
-			z = radius * Math.cos(alpha);
-
-			self.atoms[i][j].mesh.position = new THREE.Vector3(
-				self.position.x + x,
-				self.position.y + y - height / 2,
-				self.position.z + z
-				);
-			self.mesh.add(self.atoms[i][j].mesh);
-			if(i > 0) {
-				self.mesh.add((new THREE.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
-
-				if (i % 2 == 1 && r == 0)
-					self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j - 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
-				
-				if (i % 2 == 1 && r == 1)
-					self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j + 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
-			}
+		for(var i = 0; i < n; i++) {
+			self.atoms[i] = new Array(m);
+			for(var j = 0; j < m; j++)
+				self.atoms[i][j] = new THREE.Atom(new THREE.Vector3(0, 0, 0), unit / 4);
 		}
-		y += i % 2 == 0 ? dy : d;  
-	}
 
+		for(var i = 0; i < n; i++) {
+			var r = (i + 1) % 4 < 2 ? 0 : 1;
+			var x = 0;
+
+			for(var j = 0; j < m; j++) {
+
+				var alpha = j * a + r * Math.PI / m;
+				x = radius * Math.sin(alpha);
+				z = radius * Math.cos(alpha);
+
+				self.atoms[i][j].mesh.position = new THREE.Vector3(
+					self.position.x + x,
+					self.position.y + y - height / 2,
+					self.position.z + z
+					);
+				self.mesh.add(self.atoms[i][j].mesh);
+				if(i > 0) {
+					self.mesh.add((new THREE.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+
+					if (i % 2 == 1 && r == 0)
+						self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j - 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+					
+					if (i % 2 == 1 && r == 1)
+						self.mesh.add((new THREE.Connection(self.atoms[i - 1][(j + 1 + m) % m].mesh.position, self.atoms[i][j].mesh.position, 0xff0000)).mesh);
+				}
+			}
+			y += i % 2 == 0 ? dy : d;  
+		}
+
+	})();
+	
 	this.update = function() {
 		self.mesh.position.add(self.speed);
-		self.mesh.rotation.y += 0.01;
 	}
-}
 
+
+};
 
 
 var Nanocollider = function() {
@@ -170,12 +180,7 @@ var Nanocollider = function() {
 	var objects = [];
 	var root = null;
 
-	var collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
-	var dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
-	var overlappingPairCache = new Ammo.btDbvtBroadphase();
-	var solver = new Ammo.btSequentialImpulseConstraintSolver();
-	var dynamicsWorld = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-	dynamicsWorld.setGravity(new Ammo.btVector3(0, -10, 0));
+	//physics
 
 	this.initialize = function(container, width, height) {
 		renderer = new THREE.WebGLRenderer();
@@ -196,6 +201,8 @@ var Nanocollider = function() {
 
 		root = new THREE.Object3D();
 		scene.add(root);
+
+		//self.initializePhysics();
 	};
 
 	this.start = function() {
@@ -214,14 +221,22 @@ var Nanocollider = function() {
 	this.mainLoop = function() {
 		requestAnimationFrame(self.mainLoop);
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
+
 		controls.update();
 		for (var i = 0; i < objects.length; i++)
 			objects[i].update();
+
+		self.updatePhysics();
 		self.render();
+	}
+
+	this.updatePhysics = function() {
+		//scene.world.stepSimulation(1 / 60, 5);
 	}
 
 	this.render = function() {
 		renderer.render(scene, camera);
+
 	};
 };
 
@@ -231,8 +246,14 @@ $(document).ready(function() {
 		collider.initialize(document.getElementById('collider'), 600, 600);
 		collider.start();
 
-		//collider.addObject(new THREE.CoordsPlane(15, 15, unit));
-		collider.addObject(new THREE.Nanotube(new THREE.Vector3(0, 0, 0), 20, 15, unit));
+		var g1 = new THREE.Nanotube(new THREE.Vector3(0, -10, 0), 20, 10, unit);
+		g1.speed = new THREE.Vector3(0, 0.01, 0);
+		var g2 = new THREE.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
+		g2.speed = new THREE.Vector3(0, -0.01, 0);
+
+		collider.addObject(g1);
+		collider.addObject(g2);
+
 	} else {
 		var warning = Detector.getWebGLErrorMessage();
 		document.getElementById('collider').appendChild(warning);
