@@ -4,16 +4,60 @@
 		"selected_items":
 		[
 			[
+				"colo",
+				"colorBackground"
+			],
+			[
+				"Nan",
+				"NanoPhysics"
+			],
+			[
+				"Nano",
+				"Nanocollider"
+			],
+			[
+				"for",
+				"for	for (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"obj",
+				"objects"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"rs",
+				"radius"
+			],
+			[
+				"color",
+				"colorBbox"
+			],
+			[
+				"Obj",
+				"object"
+			],
+			[
+				"0x",
+				"0xffff00"
+			],
+			[
+				"obje",
+				"objects"
+			],
+			[
 				"add",
 				"addObject"
 			],
 			[
 				"bo",
 				"body"
-			],
-			[
-				"obje",
-				"object"
 			],
 			[
 				"z",
@@ -52,10 +96,6 @@
 				"collisionConfiguration"
 			],
 			[
-				"Nano",
-				"Nanotube"
-			],
-			[
 				"atom",
 				"atomThikness"
 			],
@@ -68,16 +108,8 @@
 				"objects"
 			],
 			[
-				"for",
-				"for	for (…) {…}"
-			],
-			[
 				"ad",
 				"addObject"
-			],
-			[
-				"obj",
-				"object"
 			],
 			[
 				"ve",
@@ -110,10 +142,6 @@
 			[
 				"ro",
 				"rotation"
-			],
-			[
-				"marg",
-				"margin-bottom"
 			],
 			[
 				"margi",
@@ -176,10 +204,6 @@
 				"mousePressed"
 			],
 			[
-				"colo",
-				"colorBackground"
-			],
-			[
 				"can",
 				"canvas"
 			],
@@ -224,55 +248,46 @@
 	"buffers":
 	[
 		{
-			"file": "src/index.html",
-			"settings":
-			{
-				"buffer_size": 496,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 8394,
+				"buffer_size": 9314,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
+			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 3004,
+				"buffer_size": 1119,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "'use strict';\n\n// http://paulirish.com/2011/requestanimationframe-for-smart-animating/\n// shim layer with setTimeout fallback\nwindow['requestAnimFrame'] = (function(){\n  return  window.requestAnimationFrame       || \n          window.webkitRequestAnimationFrame || \n          window.mozRequestAnimationFrame    || \n          window.oRequestAnimationFrame      || \n          window.msRequestAnimationFrame     || \n          function(/* function */ callback, /* DOMElement */ element){\n            window.setTimeout(callback, 1000 / 60);\n          };\n})();\n\n(function() {\n	\n	var projector, renderer, scene, light, camera,\n		initScene, render, main, updateBoxes,\n		createBox, now, lastbox = 0, boxes = [];\n	\n	initScene = function() {\n		var collisionConfiguration, dispatcher, overlappingPairCache, solver, // Ammo world\n			ground, groundShape, groundTransform, groundMass, localInertia, motionState, rbInfo, groundAmmo;\n		\n		\n		// Projector\n		projector = new THREE.Projector();\n		\n		\n		// Renderer\n		renderer = new THREE.WebGLRenderer({antialias: true});\n		renderer.shadowMapEnabled = true;\n		renderer.shadowMapSoft = true;\n		renderer.setSize( window.innerWidth, window.innerHeight );\n		document.getElementById( 'viewport' ).appendChild( renderer.domElement );\n		\n		\n		// Scene\n		scene = new THREE.Scene();\n		\n		\n		// Light\n		light = new THREE.DirectionalLight( 0xFFFFFF );\n		light.position.set( 40, 40, 25 );\n		light.target.position.copy( scene.position );\n		light.castShadow = true;\n		light.shadowCameraLeft = -25;\n		light.shadowCameraTop = -25;\n		light.shadowCameraRight = 25;\n		light.shadowCameraBottom = 25;\n		light.shadowBias = -.0001\n		scene.add( light );\n		\n		\n		// Ammo world\n		collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();\n		dispatcher = new Ammo.btCollisionDispatcher( collisionConfiguration );\n		overlappingPairCache = new Ammo.btDbvtBroadphase();\n		solver = new Ammo.btSequentialImpulseConstraintSolver();\n		scene.world = new Ammo.btDiscreteDynamicsWorld( dispatcher, overlappingPairCache, solver, collisionConfiguration );\n		scene.world.setGravity(new Ammo.btVector3(0, -12, 0));\n		\n		\n		// Camera\n		camera = new THREE.PerspectiveCamera(\n			35,\n			window.innerWidth / window.innerHeight,\n			1,\n			1000\n		);\n		camera.position.set( 60, 50, 60 );\n		camera.lookAt( scene.position );\n		scene.add( camera );\n		\n		\n		// Ground\n		ground = new THREE.Mesh(\n			new THREE.PlaneGeometry( 50, 50 ),\n			new THREE.MeshLambertMaterial({ color: 0xDDDDDD })\n		);\n		ground.receiveShadow = true;\n		ground.rotation.x = -Math.PI / 2;\n		scene.add( ground );\n		\n		\n		// Ground physics\n		groundShape = new Ammo.btBoxShape(new Ammo.btVector3( 25, 1, 25 ));\n		groundTransform = new Ammo.btTransform();\n		groundTransform.setIdentity();\n		groundTransform.setOrigin(new Ammo.btVector3( 0, -1, 0 ));\n		\n		groundMass = 0;\n		localInertia = new Ammo.btVector3(0, 0, 0);\n		motionState = new Ammo.btDefaultMotionState( groundTransform );\n		rbInfo = new Ammo.btRigidBodyConstructionInfo( groundMass, motionState, groundShape, localInertia );\n		groundAmmo = new Ammo.btRigidBody( rbInfo );\n		scene.world.addRigidBody( groundAmmo );\n	};\n	\n	createBox = function() {\n		var box, position_x, position_z,\n			mass, startTransform, localInertia, boxShape, motionState, rbInfo, boxAmmo;\n		\n		position_x = Math.random() * 10 - 5;\n		position_z = Math.random() * 10 - 5;\n		\n		// Create 3D box model\n		box = new THREE.Mesh(\n			new THREE.CubeGeometry( 3, 3, 3),\n			new THREE.MeshLambertMaterial({ opacity: 0, transparent: true })\n		);\n		box.material.color.setRGB( Math.random() * 100 / 100, Math.random() * 100 / 100, Math.random() * 100 / 100 );\n		box.castShadow = true;\n		box.receiveShadow = true;\n		box.useQuaternion = true;\n		scene.add( box );\n		\n		new TWEEN.Tween(box.material).to({opacity: 1}, 500).start();\n		\n		// Create box physics model\n		mass = 3 * 3 * 3;\n		startTransform = new Ammo.btTransform();\n		startTransform.setIdentity();\n		startTransform.setOrigin(new Ammo.btVector3( position_x, 20, position_z ));\n		\n		localInertia = new Ammo.btVector3(0, 0, 0);\n		\n		boxShape = new Ammo.btBoxShape(new Ammo.btVector3( 1.5, 1.5, 1.5 ));\n		boxShape.calculateLocalInertia( mass, localInertia );\n		\n		motionState = new Ammo.btDefaultMotionState( startTransform );\n		rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, boxShape, localInertia );\n		boxAmmo = new Ammo.btRigidBody( rbInfo );\n		scene.world.addRigidBody( boxAmmo );\n		\n		boxAmmo.mesh = box;\n		boxes.push( boxAmmo );\n	};\n	\n	updateBoxes = function() {\n		scene.world.stepSimulation( 1 / 60, 5 );\n		var i, transform = new Ammo.btTransform(), origin, rotation;\n		\n		for ( i = 0; i < boxes.length; i++ ) {\n			boxes[i].getMotionState().getWorldTransform( transform );\n			\n			origin = transform.getOrigin();\n			boxes[i].mesh.position.x = origin.x();\n			boxes[i].mesh.position.y = origin.y();\n			boxes[i].mesh.position.z = origin.z();\n			\n			rotation = transform.getRotation();\n			boxes[i].mesh.quaternion.x = rotation.x();\n			boxes[i].mesh.quaternion.y = rotation.y();\n			boxes[i].mesh.quaternion.z = rotation.z();\n			boxes[i].mesh.quaternion.w = rotation.w();\n		};\n	};\n	\n	render = function render() {\n		renderer.render(scene, camera);\n	};\n	\n	main = function main() {\n		\n		// Create a new box every second\n		now = new Date().getTime();\n		if ( now - lastbox > 1000 ) {\n			createBox();\n			lastbox = now;\n		}\n		\n		// Run physics\n		updateBoxes();\n		\n		render();\n		window.requestAnimFrame(main);\n	};\n	\n	window.onload = function() {\n		initScene();\n		TWEEN.start();\n		requestAnimFrame(main);\n	}\n	\n})();",
+			"file": "src/css/mainstyle.css",
 			"settings":
 			{
-				"buffer_size": 5546,
-				"line_ending": "Unix",
-				"name": "'use strict';"
+				"buffer_size": 376,
+				"line_ending": "Unix"
 			}
 		}
 	],
 	"build_system": "Packages/User/chrome_run.sublime-build",
 	"command_palette":
 	{
-		"height": 285.0,
+		"height": 309.0,
 		"selected_items":
 		[
 			[
 				"Package Control: ",
-				"Package Control: Install Package"
+				"Package Control: Disable Package"
 			]
 		],
-		"width": 347.0
+		"width": 588.0
 	},
 	"console":
 	{
-		"height": 125.0
+		"height": 178.0
 	},
 	"distraction_free":
 	{
@@ -285,6 +300,9 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/src/core/Object3D.js",
+		"/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
 		"/home/ewgenius/Applications/blender-2.65a-linux-glibc211-x86_64/2.65/scripts/addons/modules/ui_utils.py",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Graphene.java",
@@ -323,7 +341,6 @@
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/canvasmol.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgeometry.js",
-		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/ewgenius/Projects/web/nanocollider/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/css/mainstyle.css",
 		"/home/ewgenius/Projects/web/nanocollider/data/animation.xml",
@@ -357,6 +374,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"bbox",
+			"THREE.Nanotube",
+			"THREE.Graphene",
+			"THREE.Connection",
+			"THREE.Atom",
+			"THREE.CoordsPlane",
+			"root",
+			"children",
+			"colorConnection",
+			"colorConnections",
+			"self",
+			"0x555555",
 			"bodies",
 			"boxes",
 			" )",
@@ -402,6 +431,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Nanocollider.Nanotube",
+			"Nanocollider.Graphene",
+			"Nanocollider.Connection",
+			"Nanocollider.Atom",
+			"Nanocollider.CoordsPlane",
 			"bodies",
 			")",
 			"(",
@@ -422,23 +456,59 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "src/js/collider.js",
+					"settings":
+					{
+						"buffer_size": 9314,
+						"regions":
+						{
+							"mark":
+							{
+								"flags": 144,
+								"icon": "dot",
+								"regions":
+								[
+								],
+								"scope": "mark"
+							}
+						},
+						"selection":
+						[
+							[
+								1128,
+								1128
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 453.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 496,
+						"buffer_size": 1119,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								321,
-								321
+								302,
+								302
 							]
 						],
 						"settings":
@@ -447,95 +517,34 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/js/collider.js",
-					"settings":
-					{
-						"buffer_size": 8394,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3096,
-								3096
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 2,
-					"file": "/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
-					"settings":
-					{
-						"buffer_size": 3004,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								859,
-								859
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
 						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
+					"file": "src/css/mainstyle.css",
 					"settings":
 					{
-						"buffer_size": 5546,
+						"buffer_size": 376,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3849,
-								3849
+								47,
+								47
 							]
 						],
 						"settings":
 						{
-							"auto_name": "'use strict';",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2385.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -560,18 +569,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.712579942223,
 			1.0
 		],
 		"rows":
@@ -613,7 +615,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 252.0,
+	"side_bar_visible": true,
+	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }
