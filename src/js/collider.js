@@ -24,6 +24,8 @@ var Nanocollider = function() {
 	var objects = [];
 	this.objects = objects;
 
+	this.running = false;
+
 	var root = null;
 
 	//physics
@@ -86,8 +88,9 @@ var Nanocollider = function() {
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 		controls.update();
-		for (var i = 0; i < objects.length; i++)
-			objects[i].update(self);
+		if(self.running)
+			for (var i = 0; i < objects.length; i++)
+				objects[i].update(self);
 
 		self.updatePhysics();
 		self.render();
@@ -99,7 +102,6 @@ var Nanocollider = function() {
 
 	this.render = function() {
 		renderer.render(scene, camera);
-
 	};
 
 	this.clear = function() {
@@ -114,12 +116,6 @@ var Nanocollider = function() {
 	};
 };
 
-Nanocollider.Entity = function() {
-	this.update = function() {};
-	this.initialize = function() {};
-};
-
-Nanocollider.Entity.prototype = new THREE.Object3D();
 
 Nanocollider.CoordsPlane = function(n, m, s) {
 	var self = this;
@@ -166,16 +162,6 @@ Nanocollider.Connection = function(x, y, color) {
 	});
 	this.mesh = new THREE.Line(this.geometry, this.material);
 };
-
-Nanocollider.GrapheneTest = function(position, n, m, d) {
-	var self = this;
-	var atoms = new Array(n);
-	this.initialize = function() {
-
-	};
-};
-
-Nanocollider.GrapheneTest.prototype = new Nanocollider.Entity();
 
 Nanocollider.Graphene = function(position, n, m, d) {
 	var self = this;
@@ -322,8 +308,6 @@ Nanocollider.NanoPhysics = function () {
 	};
 };
 
-var ch;
-
 $(document).ready(function() {
 	if (Detector.webgl) {
 		var collider = new Nanocollider();
@@ -346,7 +330,7 @@ $(document).ready(function() {
 
 			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, -10, 0), 21, 10, unit);
 			tube1.speed = new THREE.Vector3(0, 0.01, 0);
-			var tube2 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 21, 10, unit);
+			var tube2 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
 			tube2.speed = new THREE.Vector3(0, -0.01, 0);
 			collider.addObject(tube1);
 			collider.addObject(tube2);
@@ -359,7 +343,7 @@ $(document).ready(function() {
 
 			var g1 = new Nanocollider.Graphene(new THREE.Vector3(0, 0, 0), 20, 10, unit);
 			collider.addObject(g1);
-			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 21, 10, unit);
+			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
 			tube1.speed = new THREE.Vector3(0, -0.01, 0);
 			collider.addObject(tube1);
 		});
@@ -369,12 +353,19 @@ $(document).ready(function() {
 				collider.clear();
 			runningscene = 3;
 
-			alert("not ready yet")
+			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 0, 0), 40, 10, unit);
+			tube1.speed = new THREE.Vector3(0, -0.01, 0);
+			collider.addObject(tube1);
 		});
 
 		$('#button_clear').click(function() {
 			runningscene = 0;
 			collider.clear();
+		});
+
+		$('#button_start').click(function() {
+			collider.running = !collider.running;
+			$('#button_start').html(collider.running ? 'pause' : 'start');
 		});
 
 	} else {
