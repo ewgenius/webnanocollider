@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"proto",
+				"prototype"
+			],
+			[
+				"Gra",
+				"GrapheneTest"
+			],
+			[
+				"initi",
+				"initialize"
+			],
+			[
 				"colo",
 				"colorBackground"
 			],
@@ -251,7 +263,7 @@
 			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 9314,
+				"buffer_size": 9594,
 				"line_ending": "Unix"
 			}
 		},
@@ -268,6 +280,14 @@
 			"settings":
 			{
 				"buffer_size": 376,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Nanocollider.Graphene = function(position, n, m, d) {\n	var self = this;\n	this.n = n;\n	this.m = m;\n	this.atoms = new Array(n);\n	this.position = position;\n	this.speed = new THREE.Vector3(0, 0, 0);\n	this.mesh = new THREE.Object3D();\n\n	var dy = d / 2;\n	var dx = Math.sqrt(d * d - dy * dy);\n	var width = 2 * m * dx;\n	var height = Math.floor((n - 1) / 2) * 1.5 * d + (n - 1) % 2 * d / 2;\n\n	var y = 0;\n\n	for(var i = 0; i < n; i++) {\n		self.atoms[i] = new Array(m);\n		for(var j = 0; j < m; j++)\n			self.atoms[i][j] = new Nanocollider.Atom(new THREE.Vector3(0, 0, 0), unit / 4, self);\n	}\n\n	for(var i = 0; i < n; i++) {\n		var r = (i + 1) % 4 < 2 ? 0 : 1;\n		var x = r == 0 ? dx : 0;\n		for(var j = 0; j < m; j++) {\n			self.atoms[i][j].mesh.position = new THREE.Vector3(\n				self.position.x + x - width / 2,\n				self.position.y,\n				self.position.z + y - height / 2\n				);\n			if(drawAtoms)\n				self.mesh.add(self.atoms[i][j].mesh);\n			x += 2 * dx;\n			if(i > 0) {\n				self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n				if (j < m - 1 && i % 2 == 1 && r == 0)\n					self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j + 1].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n				if (j > 0 && i % 2 == 1 && r == 1)\n					self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j - 1].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n			}\n		}\n		y += i % 2 == 0 ? dy : d;  \n	}\n\n	this.update = function(context) {\n		\n		self.position.add(self.speed);\n	}\n};",
+			"settings":
+			{
+				"buffer_size": 1581,
 				"line_ending": "Unix"
 			}
 		}
@@ -464,7 +484,7 @@
 					"file": "src/js/collider.js",
 					"settings":
 					{
-						"buffer_size": 9314,
+						"buffer_size": 9594,
 						"regions":
 						{
 							"mark":
@@ -480,8 +500,8 @@
 						"selection":
 						[
 							[
-								1128,
-								1128
+								2587,
+								2587
 							]
 						],
 						"settings":
@@ -490,7 +510,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 453.0,
+						"translation.y": 1560.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -550,6 +570,38 @@
 					"type": "text"
 				}
 			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 1581,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								232,
+								381
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
 		}
 	],
 	"incremental_find":
@@ -569,11 +621,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -615,7 +674,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }

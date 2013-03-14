@@ -115,6 +115,8 @@ var Nanocollider = function() {
 };
 
 Nanocollider.Entity = function() {
+	this.update = function() {};
+	this.initialize = function() {};
 };
 
 Nanocollider.Entity.prototype = new THREE.Object3D();
@@ -164,6 +166,16 @@ Nanocollider.Connection = function(x, y, color) {
 	});
 	this.mesh = new THREE.Line(this.geometry, this.material);
 };
+
+Nanocollider.GrapheneTest = function(position, n, m, d) {
+	var self = this;
+	var atoms = new Array(n);
+	this.initialize = function() {
+
+	};
+};
+
+Nanocollider.GrapheneTest.prototype = new Nanocollider.Entity();
 
 Nanocollider.Graphene = function(position, n, m, d) {
 	var self = this;
