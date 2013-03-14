@@ -2,7 +2,7 @@ var runningscene = 0;
 
 var unit = 1;
 var globalscene;
-var atomThikness = 5;
+var atomThikness = 7;
 var bbox = false;
 var drawAtoms = false;
 
@@ -10,6 +10,7 @@ var colorBackground = 0x000000;
 var colorAtoms = 0xff0000;
 var colorConnection = 0xffffff;
 var colorBbox = 0x00ff00;
+var colorBbox1 = 0xff0000;
 var colorCoords = 0x555555;
 
 var Nanocollider = function() {
@@ -31,7 +32,15 @@ var Nanocollider = function() {
 	//physics
 
 	this.initialize = function(container) {
-		renderer = new THREE.WebGLRenderer();
+		if (Detector.webgl) {
+			renderer = new THREE.WebGLRenderer();
+		} else {
+			renderer = new THREE.CanvasRenderer();
+			//var warning = Detector.getWebGLErrorMessage();
+			//document.getElementById('canvas_container').appendChild(warning);
+		}
+
+		
 		renderer.setClearColorHex(colorBackground, 1);
 		container.appendChild(renderer.domElement);
 
@@ -74,8 +83,8 @@ var Nanocollider = function() {
 		light.position.set(10, 10, 10);
 		scene.add(light);
 
-		//var ambientLight = new THREE.AmbientLight(0xff5555);
-        //scene.add(ambientLight);
+		var ambientLight = new THREE.AmbientLight(0x555555);
+        scene.add(ambientLight);
 	};
 
 	this.addObject = function(object) {
@@ -222,6 +231,7 @@ Nanocollider.Nanotube = function(position, n, m, d) {
 	this.position = position;
 	this.speed = new THREE.Vector3(0, 0, 0);
 	this.mesh = new THREE.Object3D();
+	this.body = {};
 
 	(function() {
 
@@ -275,6 +285,8 @@ Nanocollider.Nanotube = function(position, n, m, d) {
 			y += i % 2 == 0 ? dy : d;  
 		}
 
+		//self.body.x1 = 
+
 		if(bbox) {
 			var cube = new THREE.Mesh(
 				new THREE.CubeGeometry(2 * radius, height, 2 * radius),
@@ -284,10 +296,26 @@ Nanocollider.Nanotube = function(position, n, m, d) {
 						wireframe: true,
 						wireframe_linewidth: 10
 					}));
+
+			var cube1 = new THREE.Mesh(
+				new THREE.CubeGeometry(2 * radius + 2 * d, height + 2 * d, 2 * radius + 2 * d),
+				new THREE.MeshBasicMaterial(
+					{
+						color: colorBbox1,
+						wireframe: true,
+						wireframe_linewidth: 10
+					}));
+
 			cube.position.x = self.position.x;
 			cube.position.y = self.position.y;
 			cube.position.z = self.position.z;
+
+			cube1.position.x = self.position.x;
+			cube1.position.y = self.position.y;
+			cube1.position.z = self.position.z;
+
 			self.mesh.add(cube);
+			self.mesh.add(cube1);
 		}
 	})();
 	
@@ -303,73 +331,72 @@ Nanocollider.NanoPhysics = function () {
 
 	this.update = function() {
 		for (var i = bodies.length - 1; i >= 0; i--) {
-			//bodies[i]
+			for (var j = bodies.length - 1; j >= 0; j--) {
+				if(i != j) {
+
+				}
+			};
 		};
 	};
 };
 
 $(document).ready(function() {
-	if (Detector.webgl) {
-		var collider = new Nanocollider();
-		var container = document.getElementById('canvas_container');
-		collider.initialize(container);
-		collider.start();
 
-		$('#checkbox_atoms').mousedown(function() {
-			drawAtoms = !$('#checkbox_atoms').is(':checked');
-		});
+	var collider = new Nanocollider();
+	var container = document.getElementById('canvas_container');
+	collider.initialize(container);
+	collider.start();
 
-		$('#checkbox_bbox').mousedown(function() {
-			bbox = !$('#checkbox_bbox').is(':checked');
-		});
+	$('#checkbox_atoms').mousedown(function() {
+		drawAtoms = !$('#checkbox_atoms').is(':checked');
+	});
 
-		$('#button_test1').click(function() {
-			if(runningscene != 0)
-				collider.clear();
-			runningscene = 1;
+	$('#checkbox_bbox').mousedown(function() {
+		bbox = !$('#checkbox_bbox').is(':checked');
+	});
 
-			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, -10, 0), 21, 10, unit);
-			tube1.speed = new THREE.Vector3(0, 0.01, 0);
-			var tube2 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
-			tube2.speed = new THREE.Vector3(0, -0.01, 0);
-			collider.addObject(tube1);
-			collider.addObject(tube2);
-		});
-
-		$('#button_test2').click(function() {
-			if(runningscene != 0)
-				collider.clear();
-			runningscene = 2;
-
-			var g1 = new Nanocollider.Graphene(new THREE.Vector3(0, 0, 0), 20, 10, unit);
-			collider.addObject(g1);
-			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
-			tube1.speed = new THREE.Vector3(0, -0.01, 0);
-			collider.addObject(tube1);
-		});
-
-		$('#button_test3').click(function() {
-			if(runningscene != 0)
-				collider.clear();
-			runningscene = 3;
-
-			var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 0, 0), 40, 10, unit);
-			tube1.speed = new THREE.Vector3(0, -0.01, 0);
-			collider.addObject(tube1);
-		});
-
-		$('#button_clear').click(function() {
-			runningscene = 0;
+	$('#button_test1').click(function() {
+		if(runningscene != 0)
 			collider.clear();
-		});
+		runningscene = 1;
 
-		$('#button_start').click(function() {
-			collider.running = !collider.running;
-			$('#button_start').html(collider.running ? 'pause' : 'start');
-		});
+		var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, -10, 0), 20, 10, unit);
+		tube1.speed = new THREE.Vector3(0, 0.01, 0);
+		var tube2 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
+		tube2.speed = new THREE.Vector3(0, -0.01, 0);
+		collider.addObject(tube1);
+		collider.addObject(tube2);
+	});
 
-	} else {
-		var warning = Detector.getWebGLErrorMessage();
-		document.getElementById('canvas_container').appendChild(warning);
-	}
+	$('#button_test2').click(function() {
+		if(runningscene != 0)
+			collider.clear();
+		runningscene = 2;
+
+		var g1 = new Nanocollider.Graphene(new THREE.Vector3(0, 0, 0), 20, 10, unit);
+		collider.addObject(g1);
+		var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 10, 0), 20, 10, unit);
+		tube1.speed = new THREE.Vector3(0, -0.01, 0);
+		collider.addObject(tube1);
+	});
+
+	$('#button_test3').click(function() {
+		if(runningscene != 0)
+			collider.clear();
+		runningscene = 3;
+
+		var tube1 = new Nanocollider.Nanotube(new THREE.Vector3(0, 0, 0), 80, 20, unit);
+		tube1.speed = new THREE.Vector3(0, -0.01, 0);
+		collider.addObject(tube1);
+	});
+
+	$('#button_clear').click(function() {
+		runningscene = 0;
+		collider.clear();
+	});
+
+	$('#button_start').click(function() {
+		collider.running = !collider.running;
+		$('#button_start').html(collider.running ? 'pause' : 'start');
+	});
 });
