@@ -3,8 +3,13 @@ var runningscene = 0;
 var unit = 1;
 var globalscene;
 var atomThikness = 10;
+var cubeSide = 100;
+var particleSpeed = 0.5;
+var particleRadius = 1;
+
 var bbox = false;
 var drawAtoms = false;
+
 
 var colorBackground = 0x000000;
 var colorAtoms = 0xff0000;
@@ -25,10 +30,7 @@ var Nanocollider = function() {
 	this.objects = objects;
 
 	this.running = false;
-
 	var root = null;
-
-	//physics
 
 	this.initialize = function(container) {
 		if (Detector.webgl)
@@ -36,6 +38,7 @@ var Nanocollider = function() {
 		else
 			renderer = new THREE.CanvasRenderer();
 
+		
 		renderer.setClearColorHex(colorBackground, 1);
 		container.appendChild(renderer.domElement);
 
@@ -81,43 +84,74 @@ var Nanocollider = function() {
 	};
 
 	this.addObject = function(object) {
-		objects.push(object);
-		scene.add(object);
+		root.add(object);
 	};
 
-	function getRandomInt(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+
+///
+///
+///
+	function getRandom(min, max) {
+		return Math.random() * (max - min) + min;
 	}
 
-	this.initializeHeap = function(n, r) {
-		var width = r;
-		for(var i = 0; i < n; i++) {
-			var object = 
-			// = new THREE.Mesh(
-			//	new THREE.SphereGeometry(unit, atomThikness, atomThikness),
-			//	new THREE.MeshLambertMaterial({color: colorAtoms}));
-			new Nanocollider.Nanoobject();
-			object.prototype = new THREE.Mesh();
-			object.position = new THREE.Vector3(
-				getRandomInt(-width, width),
-				getRandomInt(-width, width),
-				getRandomInt(-width, width)
-				);
-			var speed = new THREE.Vector3(
-				getRandomInt(-10, 10),
-				getRandomInt(-10, 10),
-				getRandomInt(-10, 10)
-				);
-			object.speed = speed.normalize();
+	
 
-			object.update = function() {
-				this.position.add(this.speed);
-			};
-			
-			self.addObject(object);
-		}
+	function addRandomSphere(radius) {
+		var geometry = new THREE.SphereGeometry(unit, atomThikness, atomThikness);
+		var material = new THREE.MeshLambertMaterial({color: colorAtoms});
+		var sphere = new THREE.Mesh(geometry, material);
 
-	}
+		sphere.position = new THREE.Vector3(
+			getRandom(-radius, radius),
+			getRandom(-radius, radius),
+			getRandom(-radius, radius)
+			);
+
+		sphere.speed = new THREE.Vector3(
+			getRandom(-radius, radius),
+			getRandom(-radius, radius),
+			getRandom(-radius, radius)
+			);
+		sphere.speed = sphere.speed.normalize().multiplyScalar(particleSpeed);
+		sphere.update = function() {
+			var x = this.speed.x;
+			var y = this.speed.y;
+			var z = this.speed.z;
+			var dx = this.position.x + x;
+			var dy = this.position.y + y;
+			var dz = this.position.z + z;
+			if(x > 0 && dx >= cubeSide / 2 + particleRadius || x < 0 && dx <= -cubeSide / 2 - particleRadius)
+				this.speed.x *= -1;
+			else if(y > 0 && dy >= cubeSide / 2 + particleRadius || y < 0 && dy <= -cubeSide / 2 - particleRadius)
+				this.speed.y *= -1;
+			else if(z > 0 && dz >= cubeSide / 2 + particleRadius || z < 0 && dz <= -cubeSide / 2 - particleRadius)
+				this.speed.z *= -1;
+			this.position.add(this.speed);
+		};
+		self.addObject(sphere);
+	};
+
+
+	this.initializeHeap = function(n, radius) {
+		var cube = new THREE.Mesh(
+			new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
+			new THREE.MeshBasicMaterial({
+				color: colorBbox1,
+				wireframe: true,
+				wireframe_linewidth: 10
+			}));
+
+		cube.update = function(){};
+
+		self.addObject(cube);
+		for(var i = 0; i < n; i++)
+			addRandomSphere(particleRadius);
+	};
+
+///
+///
+///
 
 	this.mainLoop = function() {
 		requestAnimationFrame(self.mainLoop);
@@ -125,76 +159,48 @@ var Nanocollider = function() {
 
 		controls.update();
 		if(self.running)
-			for (var i = 0; i < objects.length; i++)
-				objects[i].update(self);
+			for (var i = 0; i < root.children.length; i++)
+				root.children[i].update(self);
 
 		self.render();
-	}
+	};
 
 	this.render = function() {
 		renderer.render(scene, camera);
 	};
 
 	this.clear = function() {
-		root = new THREE.Object3D();
-
-		for(var i = 0; i < objects.length; i++) {
-			scene.remove(objects[i].mesh);
-			objects[i] = null;
+		//var n = 
+		for(var i = root.children.length - 1; i >= 0 ; i--) {
+			root.remove(root.children[i]);
+			//root.children[i] = null;
 		}
-		objects = [];
-
+		root.children = [];
 	};
 };
-
-Nanocollider.Nanoobject = function() {
-	var self = this;
-	this.geometry = new THREE.SphereGeometry(unit, atomThikness, atomThikness);
-	this.material = new THREE.MeshLambertMaterial({
-		color: colorAtoms
-	});
-	this.speed = new THREE.Vector3();
-
-	this.update = function() {
-		self.position.add(self.speed);
-	};
-}
-Nanocollider.Nanoobject.prototype = new THREE.Mesh();
-
-
 
 $(document).ready(function() {
 
 	var collider = new Nanocollider();
 	var container = document.getElementById('canvas_container');
+
 	collider.initialize(container);
 	collider.start();
 
+	function switchScene(scene) {
+		if(runningscene != 0)
+			collider.clear();
+		runningscene = scene;
+	}
+
 	$('#button_test1').click(function() {
-		if(runningscene != 0)
-			collider.clear();
-		runningscene = 1;
-
-		collider.initializeHeap(400, 10);
-	});
-
-	$('#button_test2').click(function() {
-		if(runningscene != 0)
-			collider.clear();
-		runningscene = 2;
-
-	});
-
-	$('#button_test3').click(function() {
-		if(runningscene != 0)
-			collider.clear();
-		runningscene = 3;
-
+		switchScene(1);
+		collider.initializeHeap(400, cubeSide);
 	});
 
 	$('#button_clear').click(function() {
-		runningscene = 0;
 		collider.clear();
+		switchScene(0);
 	});
 
 	$('#button_start').click(function() {

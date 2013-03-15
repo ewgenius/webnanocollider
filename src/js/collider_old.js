@@ -32,13 +32,10 @@ var Nanocollider = function() {
 	//physics
 
 	this.initialize = function(container) {
-		//if (Detector.webgl) {
-		//	renderer = new THREE.WebGLRenderer();
-		//} else {
+		if (Detector.webgl)
+			renderer = new THREE.WebGLRenderer();
+		else
 			renderer = new THREE.CanvasRenderer();
-			//var warning = Detector.getWebGLErrorMessage();
-			//document.getElementById('canvas_container').appendChild(warning);
-		//}
 
 		
 		renderer.setClearColorHex(colorBackground, 1);

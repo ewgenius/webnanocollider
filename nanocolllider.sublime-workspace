@@ -286,22 +286,6 @@
 				"buffer_size": 4326,
 				"line_ending": "Unix"
 			}
-		},
-		{
-			"file": "/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
-			"settings":
-			{
-				"buffer_size": 9845,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/collider_old.js",
-			"settings":
-			{
-				"buffer_size": 10129,
-				"line_ending": "Unix"
-			}
 		}
 	],
 	"build_system": "Packages/User/chrome_run.sublime-build",
@@ -332,6 +316,8 @@
 	},
 	"file_history":
 	[
+		"/H/Projects/nanocollider/nanocollider/src/js/collider_old.js",
+		"/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
 		"/home/ewgenius/Projects/web/collision_detection/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
@@ -558,8 +544,8 @@
 						"selection":
 						[
 							[
-								3782,
-								3782
+								2827,
+								2827
 							]
 						],
 						"settings":
@@ -568,7 +554,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1989.0,
+						"translation.y": 1269.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -576,64 +562,8 @@
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 3,
-					"file": "/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
-					"settings":
-					{
-						"buffer_size": 9845,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								533,
-								533
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1638.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/js/collider_old.js",
-					"settings":
-					{
-						"buffer_size": 10129,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2702,
-								2702
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1755.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -665,7 +595,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.829113924051,
 			1.0
 		],
 		"rows":
@@ -707,7 +637,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }
