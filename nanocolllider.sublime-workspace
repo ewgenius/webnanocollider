@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"ii",
+				"initializeHeap"
+			],
+			[
+				"ob",
+				"object"
+			],
+			[
+				"Nano",
+				"Nanoobject"
+			],
+			[
 				"proto",
 				"prototype"
 			],
@@ -22,10 +34,6 @@
 			[
 				"Nan",
 				"NanoPhysics"
-			],
-			[
-				"Nano",
-				"Nanocollider"
 			],
 			[
 				"for",
@@ -114,10 +122,6 @@
 			[
 				"spe",
 				"speed"
-			],
-			[
-				"ob",
-				"objects"
 			],
 			[
 				"ad",
@@ -260,18 +264,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/js/collider.js",
-			"settings":
-			{
-				"buffer_size": 9594,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1119,
+				"buffer_size": 1181,
 				"line_ending": "Unix"
 			}
 		},
@@ -284,10 +280,26 @@
 			}
 		},
 		{
-			"contents": "Nanocollider.Graphene = function(position, n, m, d) {\n	var self = this;\n	this.n = n;\n	this.m = m;\n	this.atoms = new Array(n);\n	this.position = position;\n	this.speed = new THREE.Vector3(0, 0, 0);\n	this.mesh = new THREE.Object3D();\n\n	var dy = d / 2;\n	var dx = Math.sqrt(d * d - dy * dy);\n	var width = 2 * m * dx;\n	var height = Math.floor((n - 1) / 2) * 1.5 * d + (n - 1) % 2 * d / 2;\n\n	var y = 0;\n\n	for(var i = 0; i < n; i++) {\n		self.atoms[i] = new Array(m);\n		for(var j = 0; j < m; j++)\n			self.atoms[i][j] = new Nanocollider.Atom(new THREE.Vector3(0, 0, 0), unit / 4, self);\n	}\n\n	for(var i = 0; i < n; i++) {\n		var r = (i + 1) % 4 < 2 ? 0 : 1;\n		var x = r == 0 ? dx : 0;\n		for(var j = 0; j < m; j++) {\n			self.atoms[i][j].mesh.position = new THREE.Vector3(\n				self.position.x + x - width / 2,\n				self.position.y,\n				self.position.z + y - height / 2\n				);\n			if(drawAtoms)\n				self.mesh.add(self.atoms[i][j].mesh);\n			x += 2 * dx;\n			if(i > 0) {\n				self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n				if (j < m - 1 && i % 2 == 1 && r == 0)\n					self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j + 1].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n				if (j > 0 && i % 2 == 1 && r == 1)\n					self.mesh.add((new Nanocollider.Connection(self.atoms[i - 1][j - 1].mesh.position, self.atoms[i][j].mesh.position, colorConnection)).mesh);\n			}\n		}\n		y += i % 2 == 0 ? dy : d;  \n	}\n\n	this.update = function(context) {\n		\n		self.position.add(self.speed);\n	}\n};",
+			"file": "src/js/collider.js",
 			"settings":
 			{
-				"buffer_size": 1581,
+				"buffer_size": 4326,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
+			"settings":
+			{
+				"buffer_size": 9845,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/collider_old.js",
+			"settings":
+			{
+				"buffer_size": 10129,
 				"line_ending": "Unix"
 			}
 		}
@@ -320,11 +332,13 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/collision_detection/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/src/core/Object3D.js",
 		"/home/ewgenius/Projects/web/ammo.js/examples/hello_world.js",
 		"/home/ewgenius/Applications/blender-2.65a-linux-glibc211-x86_64/2.65/scripts/addons/modules/ui_utils.py",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Graphene.java",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Nanotube.java",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
@@ -335,7 +349,6 @@
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/webkit/Earth.html",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/nvidia-vertex-buffer-object/demo.js",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/google/image-texture-test/demo.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/old",
 		"/home/ewgenius/Projects/web/nanocollider/src/css/kendo.common.min.css",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/glMatrix.js",
@@ -476,59 +489,23 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/collider.js",
-					"settings":
-					{
-						"buffer_size": 9594,
-						"regions":
-						{
-							"mark":
-							{
-								"flags": 144,
-								"icon": "dot",
-								"regions":
-								[
-								],
-								"scope": "mark"
-							}
-						},
-						"selection":
-						[
-							[
-								2587,
-								2587
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1560.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 1119,
+						"buffer_size": 1181,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								302
+								982,
+								982
 							]
 						],
 						"settings":
@@ -537,13 +514,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "src/css/mainstyle.css",
 					"settings":
 					{
@@ -568,6 +545,33 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/js/collider.js",
+					"settings":
+					{
+						"buffer_size": 4326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3782,
+								3782
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1989.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		},
@@ -577,17 +581,46 @@
 			[
 				{
 					"buffer": 3,
+					"file": "/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 1581,
+						"buffer_size": 9845,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								232,
-								381
+								533,
+								533
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1638.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/js/collider_old.js",
+					"settings":
+					{
+						"buffer_size": 10129,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2702,
+								2702
 							]
 						],
 						"settings":
@@ -596,7 +629,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1755.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

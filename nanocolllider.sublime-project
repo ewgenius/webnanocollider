@@ -12,6 +12,9 @@
 		},
 		{
 			"path": "/home/ewgenius/Projects/web/ammo.js"
+		},
+		{
+			"path": "/home/ewgenius/Projects/web/collision_detection"
 		}
 	]
 }
