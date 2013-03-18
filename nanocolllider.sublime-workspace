@@ -4,16 +4,92 @@
 		"selected_items":
 		[
 			[
+				"obj",
+				"objects"
+			],
+			[
+				"hea",
+				"heapSort"
+			],
+			[
+				"xa",
+				"xarr"
+			],
+			[
+				"obje",
+				"object"
+			],
+			[
+				"re",
+				"removeat"
+			],
+			[
+				"nei",
+				"neighbors"
+			],
+			[
+				"in",
+				"interact"
+			],
+			[
+				"ne",
+				"neighbors"
+			],
+			[
+				"cube",
+				"cube"
+			],
+			[
+				"me",
+				"meshdirection"
+			],
+			[
+				"ge",
+				"lineGeometry"
+			],
+			[
+				"li",
+				"lineGeometry"
+			],
+			[
+				"Ge",
+				"lineGeometry"
+			],
+			[
+				"part",
+				"particleRadius"
+			],
+			[
+				"ran",
+				"randomVector"
+			],
+			[
+				"colo",
+				"colorAtoms"
+			],
+			[
+				"La",
+				"MeshLambertMaterial"
+			],
+			[
+				"O",
+				"Object3D"
+			],
+			[
+				"Nano",
+				"Nanoobject"
+			],
+			[
+				"N",
+				"Nanocollider"
+			],
+			[
 				"ii",
 				"initializeHeap"
 			],
 			[
 				"ob",
 				"object"
-			],
-			[
-				"Nano",
-				"Nanoobject"
 			],
 			[
 				"proto",
@@ -28,20 +104,12 @@
 				"initialize"
 			],
 			[
-				"colo",
-				"colorBackground"
-			],
-			[
 				"Nan",
 				"NanoPhysics"
 			],
 			[
 				"for",
 				"for	for (…) {…} (Improved Native For-Loop)"
-			],
-			[
-				"obj",
-				"objects"
 			],
 			[
 				"marg",
@@ -66,10 +134,6 @@
 			[
 				"0x",
 				"0xffff00"
-			],
-			[
-				"obje",
-				"objects"
 			],
 			[
 				"add",
@@ -145,10 +209,6 @@
 			],
 			[
 				"render",
-				"renderer"
-			],
-			[
-				"re",
 				"renderer"
 			],
 			[
@@ -248,10 +308,6 @@
 				"Vector3"
 			],
 			[
-				"ge",
-				"geometry"
-			],
-			[
 				"se",
 				"section	Tag"
 			],
@@ -267,23 +323,31 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1181,
+				"buffer_size": 1314,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/css/mainstyle.css",
+			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 376,
+				"buffer_size": 1742,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/js/collider.js",
+			"file": "src/js/Nanocollider.js",
 			"settings":
 			{
-				"buffer_size": 4326,
+				"buffer_size": 8876,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
+			"settings":
+			{
+				"buffer_size": 4953,
 				"line_ending": "Unix"
 			}
 		}
@@ -316,8 +380,12 @@
 	},
 	"file_history":
 	[
-		"/H/Projects/nanocollider/nanocollider/src/js/collider_old.js",
+		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/Nanocollider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
 		"/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
+		"/home/ewgenius/Projects/C/OPENGL_course/homework1/mytest3.cpp",
 		"/home/ewgenius/Projects/web/collision_detection/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
@@ -328,7 +396,6 @@
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Graphene.java",
 		"/home/ewgenius/Projects/workspace/NanoColliderCalc/src/ewgenius/nanocollidercalc/nanoobjects/structures/Nanotube.java",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/css3d_molecules.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/examples/js/controls/FirstPersonControls.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/J3DI.js",
 		"/home/ewgenius/Projects/web/webgl_examples/WebGL/sdk/demos/common/webgl-utils.js",
@@ -357,7 +424,6 @@
 		"/home/ewgenius/.minecraft/options.txt",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/detector.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgraphics.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/canvasmol.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/jsgeometry.js",
 		"/home/ewgenius/Projects/web/nanocollider/index.html",
@@ -393,6 +459,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"colorBackground",
+			"self.",
+			"intervals",
+			"particles",
+			"cubeSide",
 			"bbox",
 			"THREE.Nanotube",
 			"THREE.Graphene",
@@ -450,6 +521,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
+			"cubeSide",
 			"Nanocollider.Nanotube",
 			"Nanocollider.Graphene",
 			"Nanocollider.Connection",
@@ -475,7 +548,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -483,15 +556,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 1181,
+						"buffer_size": 1314,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								982,
-								982
+								667,
+								667
 							]
 						],
 						"settings":
@@ -507,23 +580,23 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/css/mainstyle.css",
+					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 376,
+						"buffer_size": 1742,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								47,
-								47
+								80,
+								80
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -534,18 +607,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/js/collider.js",
+					"file": "src/js/Nanocollider.js",
 					"settings":
 					{
-						"buffer_size": 4326,
+						"buffer_size": 8876,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2827,
-								2827
+								2771,
+								2771
 							]
 						],
 						"settings":
@@ -554,7 +627,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1269.0,
+						"translation.y": 1980.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -562,8 +635,36 @@
 			]
 		},
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 3,
+					"file": "/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
+					"settings":
+					{
+						"buffer_size": 4953,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								751,
+								751
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 465.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -595,7 +696,7 @@
 		"cols":
 		[
 			0.0,
-			0.829113924051,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -637,7 +738,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }
