@@ -4,6 +4,7 @@ var controls;
 var camera;
 var clock;
 var objects = [];
+var root = new THREE.Object3D();
 
 function init(container) {
 	if (Detector.webgl)
@@ -13,6 +14,7 @@ function init(container) {
 	renderer.setClearColorHex(0x000000, 1);
 	container.appendChild(renderer.domElement);
 	scene = new THREE.Scene();
+	scene.add(root);
 	camera = new THREE.PerspectiveCamera(65, 800 / 600, 1, 10000);
 	camera.position = new THREE.Vector3(10, 10, 10);
 	controls = new THREE.TrackballControls(camera, renderer.domElement);
@@ -66,8 +68,15 @@ function update() {
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls.update();
 	var delta = clock.getDelta();
+	for (var i = 0; i < objects.length; i++) {
+	    objects[i].update();
+	}
 
 };
+
+function addObject() {
+
+}
 
 $(document).ready(function() {
 	init(document.getElementById("canvas_container"));

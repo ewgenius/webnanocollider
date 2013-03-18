@@ -26,6 +26,7 @@ function randomVector(length) {
 		Math.random() * 2 - 1,
 		Math.random() * 2 - 1
 		);
+    
 	return v.normalize().multiplyScalar(length);
 };
 
