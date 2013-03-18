@@ -8,14 +8,17 @@ var root = new THREE.Object3D();
 var running = false;
 
 var unit = 1;
-var objectsSegments = 3;
-var 
+var objectsSegments = 10;
+
+Physijs.scripts.worker = 'physijs_worker.js';
+Physijs.scripts.ammo = 'ammo.js';
 
 function init(container) {
 	if (Detector.webgl)
 		renderer = new THREE.WebGLRenderer({ antialias: true });
 	else
 		renderer = new THREE.CanvasRenderer();
+
 	renderer.setClearColorHex(0x000000, 1);
 	container.appendChild(renderer.domElement);
 	scene = new THREE.Scene();
@@ -98,6 +101,13 @@ function addNanoObject(position, rotation, speed, radius, length) {
 	var object = new THREE.Mesh(
 		new THREE.CylinderGeometry(radius, radius, length, objectsSegments, false),
 		new THREE.MeshLambertMaterial({color: 0xff0000}));
+	object.geometry.computeBoundingBox();
+	var bbox = object.geometry.boundingBox;
+
+	object.add(new THREE.Mesh(
+		new THREE.CubeGeometry(bbox.max.x - bbox.min.x, bbox.max.y - bbox.min.y, bbox.max.z - bbox.min.z),
+		new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 10, color: 0x00ff00})));
+
 	object.position = position;
 	object.rotation = rotation;
 	object.speed = speed;
