@@ -5,6 +5,11 @@ var camera;
 var clock;
 var objects = [];
 var root = new THREE.Object3D();
+var running = false;
+
+var unit = 1;
+var objectsSegments = 3;
+var 
 
 function init(container) {
 	if (Detector.webgl)
@@ -41,10 +46,10 @@ function init(container) {
 
 function start() {
 	var light = new THREE.PointLight(0xFFFF00);
-	light.position.set(10, 10, 10);
+	light.position.set(0, 0, 0);
 	scene.add(light);
 
-	var ambientLight = new THREE.AmbientLight(0xff0000);
+	var ambientLight = new THREE.AmbientLight(0x333333);
 	scene.add(ambientLight);
 
 	(function(){
@@ -68,14 +73,59 @@ function update() {
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls.update();
 	var delta = clock.getDelta();
-	for (var i = 0; i < objects.length; i++) {
-	    objects[i].update();
-	}
+	if(running)
+		for (var i = 0; i < objects.length; i++) {
+			objects[i].update(delta);
+		}
 
 };
 
-function addObject() {
+function randomNumber(min, max) {
+	return Math.random() * (max - min) + min;
+};
 
+function randomVector(length) {
+	var v = new THREE.Vector3(
+		Math.random() * 2 - 1,
+		Math.random() * 2 - 1,
+		Math.random() * 2 - 1
+		);
+    
+	return v.normalize().multiplyScalar(length);
+};
+
+function addNanoObject(position, rotation, speed, radius, length) {
+	var object = new THREE.Mesh(
+		new THREE.CylinderGeometry(radius, radius, length, objectsSegments, false),
+		new THREE.MeshLambertMaterial({color: 0xff0000}));
+	object.position = position;
+	object.rotation = rotation;
+	object.speed = speed;
+	object.update = function(delta) {
+		var v = this.speed.clone();
+		v.multiplyScalar(delta);
+		this.position.add(v);
+	};
+	objects.push(object);
+	root.add(object);
+};
+
+function randomNanoObjects(n, radius) {
+	for(var i = 0; i < n; i++) {
+		var rotation = randomVector(2 * Math.PI);
+		var speed = randomVector(100);
+
+		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(1, 0, 0), rotation.x));
+		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(0, 1, 0), rotation.y));
+		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(0, 0, 1), rotation.z));
+
+		addNanoObject(
+			randomVector(randomNumber(0, radius)),
+			rotation,
+			speed,
+			unit,
+			10 * unit);
+	}
 }
 
 $(document).ready(function() {
@@ -84,11 +134,12 @@ $(document).ready(function() {
 
 
 	$('#button_test1').click(function() {
-		//collider.startTest1();
+		//addNanoObject(new THREE.Vector3(), unit, 10 * unit);
+		randomNanoObjects(100, 100 * unit);
 	});
 
 	$('#button_start').click(function() {
-		collider.running = !collider.running;
-		$('#button_start').html(collider.running ? 'pause' : 'start');
+		running = !running;
+		$('#button_start').html(running ? 'pause' : 'start');
 	});
 });
