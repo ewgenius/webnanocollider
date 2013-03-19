@@ -10,11 +10,13 @@ var mouse = {x : 0, y : 0};
 var projector;
 var unit = 1;
 var objectsSegments = 10;
-var selectedObject = null;
 var width;
 var height;
 var arena;
-var cubeSide = 50;
+var cubeSide = 50 * unit;
+var physics;
+var physicsOctoDepth = 4;
+var timeScale = 1;
 
 function getPos(el) {
 	for (var lx=0, ly=0;
@@ -33,7 +35,7 @@ function init(container) {
 	renderer.setClearColorHex(0x000000, 1);
 	container.appendChild(renderer.domElement);
 
-	$(window).click(function() {
+	$(container).click(function() {
 		var p = getPos(container);
 		var mousex = ((event.clientX - p.x) / width) * 2 - 1;
 		var mousey = -((event.clientY - p.y) / height) * 2 + 1;
@@ -66,12 +68,132 @@ function init(container) {
 	$(window).resize(function() {
 		resize();
 	});
+
+	initPhysics();
+};
+
+function initPhysics() {
+	physics = {};
+	physics.xarr = [];
+
+	physics.minimalDistance = 1 * unit;
+
+	var OctoTree = function(depth, size, index, localpos) {
+		var indexes = [
+		{x : 1, y : 1, z : 1},
+		{x : 1, y : -1, z : 1},
+		{x : 1, y : 1, z : -1},
+		{x : 1, y : -1, z : -1},
+		{x : -1, y : 1, z : 1},
+		{x : -1, y : -1, z : 1},
+		{x : -1, y : 1, z : -1},
+		{x : -1, y : -1, z : -1}
+		];
+		this.parent = null;
+		this.mesh = new THREE.Mesh(
+			new THREE.CubeGeometry(size, size, size),
+			new THREE.MeshLambertMaterial({color : 0xff0000, wireframe : true}));
+		this.mesh.visible = false;
+		this.localPos = localpos;
+
+		var self = this;
+		this.addNode = function(index) {
+			var newlocpos = new THREE.Vector3(
+				self.localPos.x + indexes[index].x * size / 4,
+				self.localPos.y + indexes[index].y * size / 4,
+				self.localPos.z + indexes[index].z * size / 4);
+
+			var node = new OctoTree(depth - 1, size / 2, index, newlocpos);
+			node.parent = self;
+			node.mesh.position.x = indexes[index].x * size / 4;
+			node.mesh.position.y = indexes[index].y * size / 4;
+			node.mesh.position.z = indexes[index].z * size / 4;			
+			self.children.push(node);
+			self.mesh.add(self.children[index].mesh);
+		};
+
+		this.particles = [];
+
+		this.addParticle = function(object) {
+			if(object.node)
+				object.node.removeParticle(object);
+			if(this.particles.indexOf(object) == -1) {
+				this.particles.push(object);
+				object.node = this;
+			}
+		};
+
+		this.removeParticle = function(object) {
+			if(this.particles.indexOf(object) != -1) {
+				this.particles.pop(object);
+				object.node = null;
+			}
+		};
+
+		this.resetParticles = function() {
+			this.particles = [];
+			if(this.children)
+				for (var i = this.children.length - 1; i >= 0; i--)
+					this.children[i].resetParticles();
+		};
+
+		
+		this.checkPosition = function(object) {
+			var position = object.position;
+			var distance = size / 2;
+			if(
+				(position.x > this.localPos.x - distance) && (position.x < this.localPos.x + distance) &&
+				(position.y > this.localPos.y - distance) && (position.y < this.localPos.y + distance) &&
+				(position.z > this.localPos.z - distance) && (position.z < this.localPos.z + distance))
+				if(this.children)
+					for (var i = this.children.length - 1; i >= 0; i--) {
+						this.children[i].checkPosition(object);
+					}
+				else {
+					this.addParticle(object);
+				}
+		};
+
+		if(depth > 0) {
+			this.children = [];
+			for(var i = 0; i < 8; i++)
+				this.addNode(i);
+		}
+
+		this.update = function() {
+			if(this.children) 
+				for (var i = this.children.length - 1; i >= 0; i--) 
+					this.children[i].update();
+			else {
+				for (var i = 0; i < this.particles.length; i++) {
+					var collided = false;
+					for (var j = 0; j < i; j++) {
+						collided = collided || this.particles[i].interact(this.particles[j]);
+					}
+				}
+				//if(collided)
+					//timeScale = 0.001;
+				this.mesh.visible = collided;
+			}
+		};
+	};
+
+	physics.octoTree = new OctoTree(physicsOctoDepth, cubeSide, 0, new THREE.Vector3());
+	scene.add(physics.octoTree.mesh);
+
+	physics.update = function(delta) {
+		this.octoTree.resetParticles();
+		for(var i = 0; i < objects.length; i++) {
+			this.octoTree.checkPosition(objects[i]);
+		}
+		this.octoTree.update();
+	};
 };
 
 function start() {
 	var light = new THREE.PointLight(0xFFFF00);
 	light.position.set(0, 0, 0);
-	scene.add(light);
+	root.add(light);
 
 	var ambientLight = new THREE.AmbientLight(0x333333);
 	scene.add(ambientLight);
@@ -92,11 +214,16 @@ function render() {
 function update() {
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls.update();
-	var delta = clock.getDelta();
+
+	
+	var delta = clock.getDelta() * timeScale;
+	physics.update(delta);
 	if(running)
 		for (var i = 0; i < objects.length; i++) {
 			objects[i].update(delta);
 		}
+
+	
 };
 
 function pickObject(x, y) {
@@ -212,7 +339,7 @@ function Nanotube(n, m, d) {
 }
 
 ///
-///
+/// adding methods
 ///
 
 function addNanoObject(position, rotation, speed, n, m, d) {
@@ -225,6 +352,7 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	object.radius = radius;
 	object.length = length;
 	object.scalled = false;
+	object.node = null;
 
 	var bbox;
 	var body;
@@ -271,8 +399,24 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	object.position = position;
 	object.rotation = rotation;
 	object.speed = speed;
+	object.neigbors = [];
 
 	//object.geometry = body.geometry;
+
+	object.interact = function(object2) {
+		//var bb1 = this.geometry.boundingBox;
+		//var bb2 = object2.geometry.boundingBox;
+		//var 
+		var pos = new THREE.Vector3();
+		pos.x = this.position.x - object2.position.x;
+		pos.y = this.position.y - object2.position.y;
+		pos.z = this.position.z - object2.position.z;
+
+		if(pos.length() < physics.minimalDistance)
+			return true;
+		else
+			return false;
+	};
 
 	object.update = function(delta) {
 		if(arena) {
@@ -290,16 +434,39 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 			else if(z > 0 && dz >= cubeSide / 2 || z < 0 && dz <= -cubeSide / 2)
 				this.speed.z *= -1;
 		}
+
+		//for (var i = this.neigbors.length - 1; i >= 0; i--) {
+			//this.neigbors[i]
+
+		//};
+
 		var v = this.speed.clone();
 		v.multiplyScalar(delta);
 		this.position.add(v);	
 	};
+
 	objects.push(object);
 	root.add(object);
 };
 
-function randomNanoObjects(n, radius) {
+function clear() {
+	for (var i = objects.length - 1; i >= 0; i--) {
+		root.remove(objects[i]);
+		objects[i] = null;
+	};
+	objects = [];
+	scene.remove(arena);
+};
 
+
+///
+/// tests
+///
+
+
+function randomNanoObjects1(n, radius, arenaSize) {
+	clear();
+	cubeSide = arenaSize;
 	arena = new THREE.Mesh(
 			new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
 			new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x0000ff}));
@@ -309,11 +476,6 @@ function randomNanoObjects(n, radius) {
 	for(var i = 0; i < n; i++) {
 		var rotation = randomVector(2 * Math.PI);
 		var speed = randomVector(10);
-
-		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(1, 0, 0), rotation.x));
-		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(0, 1, 0), rotation.y));
-		//speed.applyMatrix4(new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(0, 0, 1), rotation.z));
-
 		addNanoObject(
 			randomVector(randomNumber(0, radius)),
 			rotation,
@@ -324,18 +486,54 @@ function randomNanoObjects(n, radius) {
 	}
 };
 
+function randomNanoObjects2(n, arenaSize) {
+	clear();
+	cubeSide = arenaSize;
+	arena = new THREE.Mesh(
+			new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
+			new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x0000ff}));
+	arena.geometry.computeBoundingBox();
+	scene.add(arena);
+
+	for(var k = 0; k < 2; k++) {
+		var sign = k == 1 ? -1 : 1;
+		for(var i = 0; i < n; i++) {
+			for(var j = 0; j < n; j++) {
+				var position = new THREE.Vector3(sign == 1 ? arenaSize / 4 : -arenaSize / 3, i - n / 2, j - n / 2);
+				var rotation = new THREE.Vector3(0, 0, Math.PI / 2);
+				var speed = new THREE.Vector3(-sign * 5, 0, 0);
+
+				addNanoObject(
+					position,
+					rotation,
+					speed,
+					36,
+					20,
+					0.05);
+			}
+		}
+	}
+};
+
+///
+///
+///
+
+
 $(document).ready(function() {
 	init(document.getElementById("canvas_container"));
 	start();
 
 	$('#button_test1').click(function() {
-		randomNanoObjects(100, 20 * unit);
+		randomNanoObjects1(50, 20 * unit, 50 * unit);
 	});
 
 	$('#button_test2').click(function() {
-		//for (var i = objects.length - 1; i >= 0; i--) {
-			//objects[i].switchScale();
-		//};
+		randomNanoObjects2(10, 50 * unit);
+	});
+
+	$('#button_clear').click(function() {
+		clear();
 	});
 
 	$('#button_start').click(function() {
