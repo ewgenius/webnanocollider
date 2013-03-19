@@ -4,7 +4,55 @@
 		"selected_items":
 		[
 			[
+				"con",
+				"controls"
+			],
+			[
+				"cl",
+				"clientX"
+			],
+			[
+				"mou",
+				"mouseX"
+			],
+			[
+				"cont",
+				"container"
+			],
+			[
+				"res",
+				"reset"
+			],
+			[
 				"obj",
+				"object"
+			],
+			[
+				"bod",
+				"bodies"
+			],
+			[
+				"ge",
+				"geometry"
+			],
+			[
+				"inter",
+				"intersected"
+			],
+			[
+				"ran",
+				"randomNumber"
+			],
+			[
+				"sca",
+				"scaleObject"
+			],
+			[
+				"Nano",
+				"Nanotube"
+			],
+			[
+				"obje",
 				"objects"
 			],
 			[
@@ -14,10 +62,6 @@
 			[
 				"xa",
 				"xarr"
-			],
-			[
-				"obje",
-				"object"
 			],
 			[
 				"re",
@@ -44,10 +88,6 @@
 				"meshdirection"
 			],
 			[
-				"ge",
-				"lineGeometry"
-			],
-			[
 				"li",
 				"lineGeometry"
 			],
@@ -60,10 +100,6 @@
 				"particleRadius"
 			],
 			[
-				"ran",
-				"randomVector"
-			],
-			[
 				"colo",
 				"colorAtoms"
 			],
@@ -74,10 +110,6 @@
 			[
 				"O",
 				"Object3D"
-			],
-			[
-				"Nano",
-				"Nanoobject"
 			],
 			[
 				"N",
@@ -276,10 +308,6 @@
 				"drawCube"
 			],
 			[
-				"mou",
-				"mousePressed"
-			],
-			[
 				"can",
 				"canvas"
 			],
@@ -323,7 +351,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1314,
+				"buffer_size": 1052,
 				"line_ending": "Unix"
 			}
 		},
@@ -331,23 +359,7 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 1742,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/Nanocollider.js",
-			"settings":
-			{
-				"buffer_size": 8876,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
-			"settings":
-			{
-				"buffer_size": 4953,
+				"buffer_size": 8117,
 				"line_ending": "Unix"
 			}
 		}
@@ -380,9 +392,18 @@
 	},
 	"file_history":
 	[
-		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/Nanocollider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/TrackballControls.js",
+		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/setup",
+		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/README.txt",
+		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/hotkey",
+		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/BEFORE_RELEASE.txt",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/OrbitControls.js",
+		"/home/ewgenius/Applications/lmms-0.4.13/INSTALL",
+		"/home/ewgenius/Applications/lmms-0.4.13/README",
+		"/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
+		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
 		"/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/Projects/C/OPENGL_course/homework1/mytest3.cpp",
@@ -459,6 +480,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			");\n",
+			"mouseY",
+			"mouseup",
+			"height",
+			"intersected",
+			"self.",
 			"colorBackground",
 			"self.",
 			"intervals",
@@ -521,6 +548,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"intersected",
 			"",
 			"cubeSide",
 			"Nanocollider.Nanotube",
@@ -556,15 +584,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 1314,
+						"buffer_size": 1052,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								667,
-								667
+								296,
+								296
 							]
 						],
 						"settings":
@@ -583,84 +611,25 @@
 					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 1742,
+						"buffer_size": 8117,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								80,
-								80
+								7153,
+								7153
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/js/Nanocollider.js",
-					"settings":
-					{
-						"buffer_size": 8876,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2771,
-								2771
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1980.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
-					"settings":
-					{
-						"buffer_size": 4953,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								751,
-								751
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 465.0,
+						"translation.y": 4559.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -685,18 +654,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":
@@ -738,7 +700,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }
