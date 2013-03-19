@@ -3,21 +3,6 @@
 	[
 		{
 			"path": "/home/ewgenius/Projects/web/nanocollider"
-		},
-		{
-			"path": "/home/ewgenius/Projects/web/webgl_examples"
-		},
-		{
-			"path": "/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d"
-		},
-		{
-			"path": "/home/ewgenius/Projects/web/ammo.js"
-		},
-		{
-			"path": "/home/ewgenius/Projects/web/collision_detection"
-		},
-		{
-			"path": "/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231"
 		}
 	]
 }

@@ -348,18 +348,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/index.html",
-			"settings":
-			{
-				"buffer_size": 1052,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 8117,
+				"buffer_size": 12696,
 				"line_ending": "Unix"
 			}
 		}
@@ -392,6 +384,9 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/main.js",
+		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/Nanocollider.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/TrackballControls.js",
 		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/setup",
@@ -408,7 +403,6 @@
 		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/Projects/C/OPENGL_course/homework1/mytest3.cpp",
 		"/home/ewgenius/Projects/web/collision_detection/src/index.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/src/core/Object3D.js",
@@ -429,7 +423,6 @@
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/shader.vs",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/fs.shader",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/vs.shader",
-		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/localserver.sublime-build",
 		"/home/ewgenius/Projects/web/glmol/js/GLmol.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderWeb/src/js/collider.js",
@@ -576,60 +569,32 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/index.html",
-					"settings":
-					{
-						"buffer_size": 1052,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								296,
-								296
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 8117,
+						"buffer_size": 12696,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7153,
-								7153
+								6498,
+								6498
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4559.0,
+						"translation.y": 4050.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
