@@ -6,6 +6,7 @@ var clock;
 var objects = [];
 var root = new THREE.Object3D();
 var running = false;
+var paused = false;
 var mouse = {x : 0, y : 0};
 var projector;
 var unit = 1;
@@ -13,10 +14,11 @@ var objectsSegments = 10;
 var width;
 var height;
 var arena;
-var cubeSide = 50 * unit;
+var cubeSide = 20 * unit;
 var physics;
 var physicsOctoDepth = 4;
 var timeScale = 1;
+var drawingBbox = true;
 
 function getPos(el) {
 	for (var lx=0, ly=0;
@@ -76,7 +78,7 @@ function initPhysics() {
 	physics = {};
 	physics.xarr = [];
 
-	physics.minimalDistance = 1 * unit;
+	physics.minimalDistance = 0.5 * unit;
 
 	var OctoTree = function(depth, size, index, localpos) {
 		var indexes = [
@@ -169,10 +171,12 @@ function initPhysics() {
 					var collided = false;
 					for (var j = 0; j < i; j++) {
 						collided = collided || this.particles[i].interact(this.particles[j]);
+
 					}
 				}
 				//if(collided)
 					//timeScale = 0.001;
+				someCollided = collided || someCollided;
 				this.mesh.visible = collided;
 			}
 		};
@@ -182,6 +186,7 @@ function initPhysics() {
 	scene.add(physics.octoTree.mesh);
 
 	physics.update = function(delta) {
+		someCollided = false;
 		this.octoTree.resetParticles();
 		for(var i = 0; i < objects.length; i++) {
 			this.octoTree.checkPosition(objects[i]);
@@ -218,7 +223,13 @@ function update() {
 	
 	var delta = clock.getDelta() * timeScale;
 	physics.update(delta);
-	if(running)
+
+	if(someCollided)
+		timeScale = 0.005;
+	else
+		timeScale = 1;
+
+	if(running && !paused)
 		for (var i = 0; i < objects.length; i++) {
 			objects[i].update(delta);
 		}
@@ -336,26 +347,35 @@ function Nanotube(n, m, d) {
 		y += i % 2 == 0 ? dy : d;  
 	}
 	return mesh;
-}
+};
+
+function removeOthers(obj1, obj2) {
+	for(var i = 0; i < objects.length; i++) {
+		if(objects[i] != obj1 && objects[i] != obj2)
+			root.remove(objects[i])
+	}
+};
 
 ///
 /// adding methods
 ///
 
+var boxmain;
+var someCollided = false;
+
 function addNanoObject(position, rotation, speed, n, m, d) {
 	var object = new THREE.Mesh();
-
 	var length = Math.floor((n - 1) / 2) * 1.5 * d + (n - 1) % 2 * d / 2;
 	var a = 2 * Math.PI / m;
 	var radius = d / (2 * Math.sin(a / 4));
+	var bbox;
+	var body;
 
 	object.radius = radius;
 	object.length = length;
 	object.scalled = false;
 	object.node = null;
-
-	var bbox;
-	var body;
+	object.bbproection = null;
 
 	object.reset = function() {
 		this.remove(body);
@@ -376,6 +396,7 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		new THREE.MeshLambertMaterial({color: 0xff0000}));
 		body.geometry.computeBoundingBox();
 		bbox = body.geometry.boundingBox;
+		this.bbox = bbox;
 		object.add(body);
 	};
 
@@ -392,33 +413,62 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		var box = new THREE.Mesh(
 			new THREE.CubeGeometry(bbox.max.x - bbox.min.x, bbox.max.y - bbox.min.y, bbox.max.z - bbox.min.z),
 			new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x00ff00}));
+
 		object.geometry = box.geometry;
 		object.material = box.material;
 	}
 
 	object.position = position;
 	object.rotation = rotation;
+	//object.useQuaternion = true;
 	object.speed = speed;
 	object.neigbors = [];
 
 	//object.geometry = body.geometry;
 
 	object.interact = function(object2) {
-		//var bb1 = this.geometry.boundingBox;
-		//var bb2 = object2.geometry.boundingBox;
-		//var 
+
+		var bb1 = this.bbproection;
+		var bb2 = object2.bbproection;
+		//var
+		/* 
+		if(bb1 && bb2) {
+			if(bb1.min.x <= bb2.min.x <= bb1.max.x || bb1.min.x <= bb2.max.x <= bb1.max.x)
+				if(bb1.min.y <= bb2.min.y <= bb1.max.y || bb1.min.y <= bb2.max.y <= bb1.max.y)
+					if(bb1.min.z <= bb2.min.z <= bb1.max.z || bb1.min.z <= bb2.max.z <= bb1.max.z) {
+						//running = false;
+						return true;
+					}
+		
+		}*/
+
 		var pos = new THREE.Vector3();
 		pos.x = this.position.x - object2.position.x;
 		pos.y = this.position.y - object2.position.y;
 		pos.z = this.position.z - object2.position.z;
 
-		if(pos.length() < physics.minimalDistance)
+		if(pos.length() < this.length / 2) {
+			//paused = true;
+			//removeOthers(this, object2);
+			//object2.scalePlus();
+			//this.scalePlus();
 			return true;
+		}
 		else
 			return false;
 	};
 
+	object.updateBboxProection = function() {
+		if(!this.bbproection)
+			this.bbproection = {};
+		this.bbproection.min = bbox.min.clone();
+		this.bbproection.max = bbox.max.clone();
+		this.bbproection.min.applyMatrix4(this.matrixWorld);
+		this.bbproection.max.applyMatrix4(this.matrixWorld);
+	};
+
 	object.update = function(delta) {
+		this.updateBboxProection();
 		if(arena) {
 			var x = this.speed.x;
 			var y = this.speed.y;
@@ -442,9 +492,11 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 
 		var v = this.speed.clone();
 		v.multiplyScalar(delta);
+		this.visible = drawingBbox;
 		this.position.add(v);	
 	};
 
+	//object.update();
 	objects.push(object);
 	root.add(object);
 };
@@ -455,24 +507,25 @@ function clear() {
 		objects[i] = null;
 	};
 	objects = [];
-	scene.remove(arena);
+	//scene.remove(arena);
 };
-
 
 ///
 /// tests
 ///
 
+function initArena() {
+	if(arena == null) {
+		arena = new THREE.Mesh(
+				new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
+				new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x0000ff}));
+		arena.geometry.computeBoundingBox();
+		scene.add(arena);
+	}
+};
 
-function randomNanoObjects1(n, radius, arenaSize) {
-	clear();
-	cubeSide = arenaSize;
-	arena = new THREE.Mesh(
-			new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
-			new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x0000ff}));
-	arena.geometry.computeBoundingBox();
-	scene.add(arena);
-
+function randomNanoObjects1(n, radius) {
+	//clear();
 	for(var i = 0; i < n; i++) {
 		var rotation = randomVector(2 * Math.PI);
 		var speed = randomVector(10);
@@ -480,26 +533,20 @@ function randomNanoObjects1(n, radius, arenaSize) {
 			randomVector(randomNumber(0, radius)),
 			rotation,
 			speed,
-			36,
-			20,
+			16,
+			6,
 			0.05);
 	}
+
 };
 
-function randomNanoObjects2(n, arenaSize) {
-	clear();
-	cubeSide = arenaSize;
-	arena = new THREE.Mesh(
-			new THREE.CubeGeometry(cubeSide, cubeSide, cubeSide),
-			new THREE.MeshLambertMaterial({wireframe: true, wireframe_linewidth: 1, color: 0x0000ff}));
-	arena.geometry.computeBoundingBox();
-	scene.add(arena);
-
+function randomNanoObjects2(n) {
+	//clear();
 	for(var k = 0; k < 2; k++) {
 		var sign = k == 1 ? -1 : 1;
 		for(var i = 0; i < n; i++) {
 			for(var j = 0; j < n; j++) {
-				var position = new THREE.Vector3(sign == 1 ? arenaSize / 4 : -arenaSize / 3, i - n / 2, j - n / 2);
+				var position = new THREE.Vector3(sign == 1 ? cubeSide / 4 : -cubeSide / 3, i - n / 2, j - n / 2);
 				var rotation = new THREE.Vector3(0, 0, Math.PI / 2);
 				var speed = new THREE.Vector3(-sign * 5, 0, 0);
 
@@ -507,8 +554,8 @@ function randomNanoObjects2(n, arenaSize) {
 					position,
 					rotation,
 					speed,
-					36,
-					20,
+					16,
+					6,
 					0.05);
 			}
 		}
@@ -519,17 +566,17 @@ function randomNanoObjects2(n, arenaSize) {
 ///
 ///
 
-
 $(document).ready(function() {
 	init(document.getElementById("canvas_container"));
 	start();
+	initArena();
 
 	$('#button_test1').click(function() {
-		randomNanoObjects1(50, 20 * unit, 50 * unit);
+		randomNanoObjects1(100, 10 * unit);
 	});
 
 	$('#button_test2').click(function() {
-		randomNanoObjects2(10, 50 * unit);
+		randomNanoObjects2(10);
 	});
 
 	$('#button_clear').click(function() {

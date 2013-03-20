@@ -4,56 +4,112 @@
 		"selected_items":
 		[
 			[
-				"con",
-				"controls"
+				"obje",
+				"object2"
 			],
 			[
-				"cl",
-				"clientX"
+				"pause",
+				"paused"
 			],
 			[
-				"mou",
-				"mouseX"
+				"y",
+				"y"
 			],
 			[
-				"cont",
-				"container"
+				"bb",
+				"bbproection"
 			],
 			[
-				"res",
-				"reset"
+				"upda",
+				"updateBboxProection"
+			],
+			[
+				"bbpr",
+				"bbproection"
+			],
+			[
+				"init",
+				"initArena"
+			],
+			[
+				"dra",
+				"drawingBbox"
+			],
+			[
+				"sca",
+				"scalePlus"
+			],
+			[
+				"in",
+				"interacted"
+			],
+			[
+				"arena",
+				"arenaSize"
+			],
+			[
+				"time",
+				"timeScale"
+			],
+			[
+				"min",
+				"minimalDistance"
+			],
+			[
+				"inter",
+				"interact"
+			],
+			[
+				"re",
+				"removeParticle"
+			],
+			[
+				"add",
+				"addParticle"
 			],
 			[
 				"obj",
 				"object"
 			],
 			[
-				"bod",
-				"bodies"
+				"inde",
+				"index"
 			],
 			[
-				"ge",
-				"geometry"
+				"new",
+				"newlocpos"
 			],
 			[
-				"inter",
-				"intersected"
+				"lo",
+				"localPos"
+			],
+			[
+				"get",
+				"getPosition"
+			],
+			[
+				"ch",
+				"checkPosition"
+			],
+			[
+				"rese",
+				"resetParticles"
+			],
+			[
+				"pa",
+				"particles"
+			],
+			[
+				"bo",
+				"boundingBox"
 			],
 			[
 				"ran",
-				"randomNumber"
+				"randomNanoObjects2"
 			],
 			[
-				"sca",
-				"scaleObject"
-			],
-			[
-				"Nano",
-				"Nanotube"
-			],
-			[
-				"obje",
-				"objects"
+				"are",
+				"arenaSize"
 			],
 			[
 				"hea",
@@ -64,16 +120,8 @@
 				"xarr"
 			],
 			[
-				"re",
-				"removeat"
-			],
-			[
 				"nei",
 				"neighbors"
-			],
-			[
-				"in",
-				"interact"
 			],
 			[
 				"ne",
@@ -86,6 +134,10 @@
 			[
 				"me",
 				"meshdirection"
+			],
+			[
+				"ge",
+				"lineGeometry"
 			],
 			[
 				"li",
@@ -110,6 +162,10 @@
 			[
 				"O",
 				"Object3D"
+			],
+			[
+				"Nano",
+				"Nanoobject"
 			],
 			[
 				"N",
@@ -168,20 +224,8 @@
 				"0xffff00"
 			],
 			[
-				"add",
-				"addObject"
-			],
-			[
-				"bo",
-				"body"
-			],
-			[
 				"z",
 				"z"
-			],
-			[
-				"get",
-				"getWorldTransform"
 			],
 			[
 				"bt",
@@ -226,10 +270,6 @@
 			[
 				"ve",
 				"Vector3"
-			],
-			[
-				"lo",
-				"lookAt"
 			],
 			[
 				"came",
@@ -288,10 +328,6 @@
 				"detectCL"
 			],
 			[
-				"init",
-				"initShaders"
-			],
-			[
 				"so",
 				"sourceVertex"
 			],
@@ -304,8 +340,8 @@
 				"shaderScript"
 			],
 			[
-				"dra",
-				"drawCube"
+				"mou",
+				"mousePressed"
 			],
 			[
 				"can",
@@ -351,12 +387,20 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 12696,
-				"line_ending": "Unix"
+				"buffer_size": 13702,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/index.html",
+			"settings":
+			{
+				"buffer_size": 1114,
+				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Packages/User/chrome_run.sublime-build",
+	"build_system": "Packages/User/chrome.sublime-build",
 	"command_palette":
 	{
 		"height": 309.0,
@@ -375,7 +419,7 @@
 	},
 	"distraction_free":
 	{
-		"menu_visible": true,
+		"menu_visible": false,
 		"show_minimap": false,
 		"show_open_files": false,
 		"show_tabs": false,
@@ -384,25 +428,16 @@
 	},
 	"file_history":
 	[
-		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/main.js",
-		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/Nanocollider.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/TrackballControls.js",
-		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/setup",
-		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/README.txt",
-		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/hotkey",
-		"/home/ewgenius/Projects/python/ubuntu-speech-recognition-master/BEFORE_RELEASE.txt",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/OrbitControls.js",
-		"/home/ewgenius/Applications/lmms-0.4.13/INSTALL",
-		"/home/ewgenius/Applications/lmms-0.4.13/README",
+		"/D/Work/Projects/nanocollider/src/js/Nanocollider.js",
 		"/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
 		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/Nanocollider.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/collider_old.js",
 		"/home/ewgenius/Projects/web/collision_detection/src/js/main.js",
 		"/home/ewgenius/Projects/web/nanocollider/src/css/mainstyle.css",
 		"/home/ewgenius/Projects/C/OPENGL_course/homework1/mytest3.cpp",
 		"/home/ewgenius/Projects/web/collision_detection/src/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/index.html",
 		"/home/ewgenius/Projects/web/nanocollider/src/js/collider.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/ewgenius/Projects/web/mrdoob-three.js-f7e120d/src/core/Object3D.js",
@@ -423,6 +458,7 @@
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/shader.vs",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/fs.shader",
 		"/home/ewgenius/Projects/web/nanocollider/src/shaders/vs.shader",
+		"/home/ewgenius/.config/sublime-text-2/Packages/User/chrome_run.sublime-build",
 		"/home/ewgenius/.config/sublime-text-2/Packages/User/localserver.sublime-build",
 		"/home/ewgenius/Projects/web/glmol/js/GLmol.js",
 		"/home/ewgenius/Projects/workspace/NanoColliderWeb/src/js/collider.js",
@@ -473,12 +509,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			");\n",
-			"mouseY",
-			"mouseup",
-			"height",
-			"intersected",
-			"self.",
+			"pick",
+			"switch",
+			"selectedObject",
 			"colorBackground",
 			"self.",
 			"intervals",
@@ -541,7 +574,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"intersected",
 			"",
 			"cubeSide",
 			"Nanocollider.Nanotube",
@@ -577,24 +609,52 @@
 					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 12696,
+						"buffer_size": 13702,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6498,
-								6498
+								133,
+								133
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4050.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/index.html",
+					"settings":
+					{
+						"buffer_size": 1114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								968,
+								968
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -632,7 +692,7 @@
 			1.0
 		]
 	},
-	"menu_visible": true,
+	"menu_visible": false,
 	"output.exec":
 	{
 		"height": 100.0
@@ -665,7 +725,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }
