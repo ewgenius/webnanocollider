@@ -4,6 +4,7 @@ var controls;
 var camera;
 var clock;
 var objects = [];
+var objectCollided = [];
 var root = new THREE.Object3D();
 var running = false;
 var paused = false;
@@ -18,7 +19,7 @@ var cubeSide = 20 * unit;
 var physics;
 var physicsOctoDepth = 4;
 var timeScale = 1;
-var drawingBbox = true;
+var drawingBbox = false;
 
 function getPos(el) {
 	for (var lx=0, ly=0;
@@ -182,6 +183,21 @@ function initPhysics() {
 		};
 	};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	physics.octoTree = new OctoTree(physicsOctoDepth, cubeSide, 0, new THREE.Vector3());
 	scene.add(physics.octoTree.mesh);
 
@@ -194,6 +210,12 @@ function initPhysics() {
 		this.octoTree.update();
 	};
 };
+
+
+///
+///
+///
+
 
 function start() {
 	var light = new THREE.PointLight(0xFFFF00);
@@ -224,10 +246,10 @@ function update() {
 	var delta = clock.getDelta() * timeScale;
 	physics.update(delta);
 
-	if(someCollided)
-		timeScale = 0.005;
-	else
-		timeScale = 1;
+	//if(someCollided)
+	//	timeScale = 0.005;
+	//else
+	//	timeScale = 1;
 
 	if(running && !paused)
 		for (var i = 0; i < objects.length; i++) {
@@ -349,19 +371,18 @@ function Nanotube(n, m, d) {
 	return mesh;
 };
 
+///
+/// adding methods
+///
+
+var someCollided = false;
+
 function removeOthers(obj1, obj2) {
 	for(var i = 0; i < objects.length; i++) {
 		if(objects[i] != obj1 && objects[i] != obj2)
 			root.remove(objects[i])
 	}
 };
-
-///
-/// adding methods
-///
-
-var boxmain;
-var someCollided = false;
 
 function addNanoObject(position, rotation, speed, n, m, d) {
 	var object = new THREE.Mesh();
@@ -379,6 +400,16 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 
 	object.reset = function() {
 		this.remove(body);
+	};
+
+	object.getEndings = function() {
+		var v1 = new THREE.Vector3(0, length / 2, 0);
+		var v2 = new THREE.Vector3(0, -length / 2, 0);
+		v1.applyMatrix4(this.matrixWorld);
+		v2.applyMatrix4(this.matrixWorld);
+		v1.add(this.position);
+		v2.add(this.position);
+		return {plus : v1, minus : v2};
 	};
 
 	object.scalePlus = function() {
@@ -422,7 +453,9 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	object.rotation = rotation;
 	//object.useQuaternion = true;
 	object.speed = speed;
+	object.speedVal = speed.length();
 	object.neigbors = [];
+	object.collisionCalculated = false;
 
 	//object.geometry = body.geometry;
 
@@ -442,16 +475,29 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		
 		}*/
 
-		var pos = new THREE.Vector3();
-		pos.x = this.position.x - object2.position.x;
-		pos.y = this.position.y - object2.position.y;
-		pos.z = this.position.z - object2.position.z;
+		var ends1 = this.getEndings();
+		var ends2 = object2.getEndings();
 
-		if(pos.length() < this.length / 2) {
+		//collision detection
+
+		var l1 = new THREE.Vector3().sub(ends1.minus, ends2.minus).length();
+		var l2 = new THREE.Vector3().sub(ends1.plus, ends2.minus).length();
+		var l3 = new THREE.Vector3().sub(ends1.minus, ends2.plus).length();
+		var l4 = new THREE.Vector3().sub(ends1.plus, ends2.plus).length();
+		var l5 = new THREE.Vector3().sub(this.position, ends2.minus).length();
+		var l6 = new THREE.Vector3().sub(this.position, ends2.plus).length();
+		var l7 = new THREE.Vector3().sub(object2.position, ends1.minus).length();
+		var l8 = new THREE.Vector3().sub(object2.position, ends1.plus).length();
+		var l9 = new THREE.Vector3().sub(this.position, object2.position).length();
+
+		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 4 * Math.max(this.radius, object2.radius)) {
 			//paused = true;
 			//removeOthers(this, object2);
 			//object2.scalePlus();
 			//this.scalePlus();
+
+			//if(objectCollided.indexOf(this) == -1)
+			//	objectCollided.push(this)
 			return true;
 		}
 		else
@@ -467,8 +513,21 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		this.bbproection.max.applyMatrix4(this.matrixWorld);
 	};
 
+	object.uporotost = function() {
+		this.rotation.x += 0.1;
+		this.rotation.y += 0.1;
+		this.rotation.z += 0.1;
+		var m = new THREE.Matrix4();
+		m.setRotationFromEuler(this.rotation, "XYZ");
+		this.speed = new THREE.Vector3(0, this.speedVal, 0);
+		this.speed.applyMatrix4(m);
+	};
+
 	object.update = function(delta) {
 		this.updateBboxProection();
+
+		//this.uporotost();
+
 		if(arena) {
 			var x = this.speed.x;
 			var y = this.speed.y;
@@ -528,7 +587,11 @@ function randomNanoObjects1(n, radius) {
 	//clear();
 	for(var i = 0; i < n; i++) {
 		var rotation = randomVector(2 * Math.PI);
-		var speed = randomVector(10);
+		var m = new THREE.Matrix4();
+		m.setRotationFromEuler(rotation, "XYZ");
+		var speed = new THREE.Vector3(0, 1, 0);
+		speed.applyMatrix4(m);
+
 		addNanoObject(
 			randomVector(randomNumber(0, radius)),
 			rotation,
@@ -537,7 +600,6 @@ function randomNanoObjects1(n, radius) {
 			6,
 			0.05);
 	}
-
 };
 
 function randomNanoObjects2(n) {
@@ -547,8 +609,12 @@ function randomNanoObjects2(n) {
 		for(var i = 0; i < n; i++) {
 			for(var j = 0; j < n; j++) {
 				var position = new THREE.Vector3(sign == 1 ? cubeSide / 4 : -cubeSide / 3, i - n / 2, j - n / 2);
-				var rotation = new THREE.Vector3(0, 0, Math.PI / 2);
-				var speed = new THREE.Vector3(-sign * 5, 0, 0);
+				var rotation = new THREE.Vector3(0, 0, sign * Math.PI / 2);
+				
+				var m = new THREE.Matrix4();
+				m.setRotationFromEuler(rotation, "XYZ");
+				var speed = new THREE.Vector3(0, 1, 0);
+				speed.applyMatrix4(m);
 
 				addNanoObject(
 					position,
@@ -560,6 +626,10 @@ function randomNanoObjects2(n) {
 			}
 		}
 	}
+};
+
+function showScene() {
+	
 };
 
 ///
@@ -576,7 +646,7 @@ $(document).ready(function() {
 	});
 
 	$('#button_test2').click(function() {
-		randomNanoObjects2(10);
+		randomNanoObjects2(1);
 	});
 
 	$('#button_clear').click(function() {
