@@ -12,21 +12,23 @@ html, body {
 
 	#toolbox {
 		float: left;
-		width: 200px;
-		min-height: 100%;
+		width: 260px;
+		/*min-height: 100%;*/
 		padding: 5px;
 	}
 
 		#toolbox .k-textbox {
-			width: 80px;
-			/*margin-left: 5px;
-			margin-right: 5px;*/
+			width: 50px;
+			height: 30px;
 		}
 
 		#toolbox button {
-			/*margin-left: 5px;
-			margin-right: 5px;*/
-			width: 190px;
+			width: 250px;
+			height: 30px;
+		}
+
+		#toolbox .text {
+			width: 50px !important;
 		}
 
 	#canvas_container {

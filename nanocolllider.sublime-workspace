@@ -4,64 +4,128 @@
 		"selected_items":
 		[
 			[
-				"sta",
-				"stats"
+				"ini",
+				"init"
 			],
 			[
-				"margin",
-				"margin-bottom"
+				"re",
+				"renderer"
 			],
 			[
-				"st",
-				"stats"
+				"app",
+				"appendChild"
 			],
 			[
-				"obj",
-				"object2"
+				"bo",
+				"body"
 			],
 			[
-				"spe",
-				"speed"
+				"container",
+				"canvas_container"
 			],
 			[
-				"obje",
-				"object2"
+				"use",
+				"useQuaternion"
 			],
 			[
-				"spee",
-				"speed"
+				"lo",
+				"lookVector"
 			],
 			[
-				"sele",
-				"select"
+				"sub",
+				"subVectors"
 			],
 			[
-				"va",
-				"value"
+				"rot",
+				"rotation"
 			],
 			[
-				"speed",
-				"speedInput"
+				"an",
+				"angleY"
 			],
 			[
-				"con",
-				"container"
+				"rota",
+				"rotateQuaternion"
 			],
 			[
-				"pause",
-				"paused"
+				"ang",
+				"angle"
 			],
 			[
 				"y",
 				"y"
 			],
 			[
-				"bb",
-				"bbproection"
+				"ro",
+				"rotateSpeed"
+			],
+			[
+				"obj",
+				"objectControls"
+			],
+			[
+				"th",
+				"theta"
+			],
+			[
+				"cli",
+				"clientX"
+			],
+			[
+				"cont",
+				"container"
+			],
+			[
+				"obje",
+				"objectControls"
+			],
+			[
+				"en",
+				"enabled"
 			],
 			[
 				"upda",
-				"updateBboxProection"
+				"update"
+			],
+			[
+				"ob",
+				"objectControls"
+			],
+			[
+				"up",
+				"uporotost"
+			],
+			[
+				"spe",
+				"speedVal"
+			],
+			[
+				"end",
+				"ends2"
+			],
+			[
+				"min",
+				"minus"
+			],
+			[
+				"get",
+				"getEndings"
+			],
+			[
+				"add",
+				"add"
+			],
+			[
+				"in",
+				"indexOf"
+			],
+			[
+				"pause",
+				"paused"
+			],
+			[
+				"bb",
+				"bbproection"
 			],
 			[
 				"bbpr",
@@ -80,10 +144,6 @@
 				"scalePlus"
 			],
 			[
-				"in",
-				"interacted"
-			],
-			[
 				"arena",
 				"arenaSize"
 			],
@@ -92,20 +152,8 @@
 				"timeScale"
 			],
 			[
-				"min",
-				"minimalDistance"
-			],
-			[
 				"inter",
 				"interact"
-			],
-			[
-				"re",
-				"removeParticle"
-			],
-			[
-				"add",
-				"addParticle"
 			],
 			[
 				"inde",
@@ -114,14 +162,6 @@
 			[
 				"new",
 				"newlocpos"
-			],
-			[
-				"lo",
-				"localPos"
-			],
-			[
-				"get",
-				"getPosition"
 			],
 			[
 				"ch",
@@ -134,10 +174,6 @@
 			[
 				"pa",
 				"particles"
-			],
-			[
-				"bo",
-				"boundingBox"
 			],
 			[
 				"ran",
@@ -212,10 +248,6 @@
 				"initializeHeap"
 			],
 			[
-				"ob",
-				"object"
-			],
-			[
 				"proto",
 				"prototype"
 			],
@@ -272,20 +304,12 @@
 				"startTransform"
 			],
 			[
-				"up",
-				"updatePhysics"
-			],
-			[
 				"gro",
 				"groundTransform"
 			],
 			[
 				"Mes",
 				"MeshLambertMaterial"
-			],
-			[
-				"ini",
-				"initializePhysics"
 			],
 			[
 				"coll",
@@ -318,10 +342,6 @@
 			[
 				"set",
 				"setSize"
-			],
-			[
-				"ro",
-				"rotation"
 			],
 			[
 				"margi",
@@ -416,31 +436,39 @@
 	"buffers":
 	[
 		{
-			"file": "src/js/main.js",
-			"settings":
-			{
-				"buffer_size": 15209,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1520,
-				"line_ending": "Unix"
+				"buffer_size": 2722,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/js/main.js",
+			"settings":
+			{
+				"buffer_size": 16620,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "src/css/mainstyle.css",
 			"settings":
 			{
-				"buffer_size": 472,
-				"line_ending": "Unix"
+				"buffer_size": 467,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/js/ObjectOrbitControls.js",
+			"settings":
+			{
+				"buffer_size": 6212,
+				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Packages/User/chrome_run.sublime-build",
+	"build_system": "Packages/User/chrome.sublime-build",
 	"command_palette":
 	{
 		"height": 309.0,
@@ -468,11 +496,12 @@
 	},
 	"file_history":
 	[
-		"/home/ewgenius/Projects/web/kendoui/examples/web/window/index.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/modellingframe.html",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/OrbitControls.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/stats.js",
-		"/home/ewgenius/Projects/web/nanocollider/src/js/TrackballControls.js",
+		"/D/Work/Projects/nanocollider/src/js/ObjectOrbitControls.js",
+		"/D/Work/Projects/nanocollider/src/js/ObjectOrbitControls",
+		"/D/Work/Projects/nanocollider/src/js/OrbitControls.js",
+		"/D/Work/Portable/sublime text 2/Data/Packages/Default/Preferences.sublime-settings",
+		"/D/Work/Projects/nanocollider/src/js/three.js",
+		"/D/Work/Projects/nanocollider/src/js/three.min.js",
 		"/D/Work/Projects/nanocollider/src/js/Nanocollider.js",
 		"/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
 		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
@@ -554,10 +583,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"STATE.ZOOM",
-			"zoomOut",
-			"minimalDistance",
+			"zoom",
+			"OrbitControls",
+			"rotateUp",
+			"center",
+			"pan",
+			"enabled",
+			"sub",
 			"someCollided",
+			"boxmain",
 			"pick",
 			"switch",
 			"selectedObject",
@@ -650,23 +684,50 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/main.js",
+					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 15209,
+						"buffer_size": 2722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6553,
-								6553
+								673,
+								695
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/js/main.js",
+					"settings":
+					{
+						"buffer_size": 16620,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16620,
+								16620
 							]
 						],
 						"settings":
@@ -676,40 +737,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 653.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "src/index.html",
-					"settings":
-					{
-						"buffer_size": 1520,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1034,
-								1034
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 91.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -719,15 +747,15 @@
 					"file": "src/css/mainstyle.css",
 					"settings":
 					{
-						"buffer_size": 472,
+						"buffer_size": 467,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								373,
-								373
+								338,
+								338
 							]
 						],
 						"settings":
@@ -737,6 +765,33 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/js/ObjectOrbitControls.js",
+					"settings":
+					{
+						"buffer_size": 6212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								595,
+								595
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2820.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -761,18 +816,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":
@@ -814,7 +862,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 158.0,
+	"side_bar_visible": false,
+	"side_bar_width": 270.0,
 	"status_bar_visible": true
 }

@@ -1,6 +1,7 @@
 var scene;
 var renderer;
 var controls;
+var objectControls;
 var camera;
 var light;
 var clock;
@@ -22,6 +23,7 @@ var physicsOctoDepth = 4;
 var timeScale = 1;
 var drawingBbox = false;
 var stats;
+var cont;
 
 function getPos(el) {
 	for (var lx=0, ly=0;
@@ -32,9 +34,8 @@ function getPos(el) {
 
 function init(container) {
 	stats = new Stats();
-	//stats.domElement.style.position = 'absolute';
 	stats.domElement.style.marginBottom = "-48px";
-	//stats.domElement.style.top = '0px';
+	cont = container;
 	container.appendChild(stats.domElement);
 
 	if (Detector.webgl)
@@ -52,22 +53,28 @@ function init(container) {
 		if(event.button == 0)
 			pickObject(mousex, mousey);
 	});
+
+	//container.onmousemove = function() {
+	//	console.log(event.clientX);
+	//};
 	
 	scene = new THREE.Scene();
 	scene.add(root);
 	camera = new THREE.PerspectiveCamera(65, 800 / 600, 1, 10000);
 	camera.position = new THREE.Vector3(10, 10, 10);
+	camera.name = "camera";
 
 
 	controls = new THREE.OrbitControls(camera, container);
 	controls.rotateSpeed = 0.5;
 	controls.userPanSpeed = 0.2;
+	controls.enabled = true;
 
 	controls.addEventListener('change', render);
 	clock = new THREE.Clock(true);
 
 	var resize = function() {
-		width = $(document).width() - 210;
+		width = $(document).width() - 260;
 		height = $(document).height() - 10;
 		renderer.setSize(width, height);
 
@@ -83,9 +90,34 @@ function init(container) {
 	initPhysics();
 };
 
+var frame;
+function newWindow() {
+	frame =  window.open('','window','width=600, height=600');
+	var html = 
+	'<html><head><title></title>'+
+	'<script src="js/jquery.min.js"></script>'+
+	'<script src="js/three.js"></script>'+
+	'<script src="js/stats.js"></script>'+
+	'<script src="js/detector.js"></script>'+
+	'<script src="js/OrbitControls.js"></script>'+
+	'<script src="js/ObjectOrbitControls.js"></script>'+
+	'<script src="js/kendo.web.min.js"></script>'+
+	'<script src="js/main.js">'+
+	'</script></head><body><div id="colliderapp"></div></body></html>';
+	frame.document.open();
+	frame.document.write(html);
+	$(frame.document).ready(function() {
+		frame.document.init = init;
+
+		frame.document.init(document.body);
+		//frame.document.start();
+		//frame.document.initArena();
+	});
+	frame.document.close();
+};
+
 function pickObject(x, y) {
 	if(objects) {
-
 		var vector = new THREE.Vector3(x, y, 1);
 		projector.unprojectVector(vector, camera);
 		var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize() );
@@ -100,8 +132,19 @@ function pickObject(x, y) {
 			var object = intersects[0].object;
 			object.select();
 
+			/*objectControls = new THREE.ObjectOrbitControls(object, cont, camera);
+			objectControls.rotateSpeed = 0.5;
+			objectControls.center = object.position;
+			objectControls.enabled = true;*/
+
+			newWindow();
+			
+			controls.enabled = false;
+
 		} else {
+			objectControls = null;
 			paused = false;
+			controls.enabled = true;
 		}
 	}
 };
@@ -250,6 +293,8 @@ function render() {
 function update() {
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls.update();
+	if(objectControls)
+		objectControls.update();
 
 	light.position = camera.position;
 
@@ -271,8 +316,6 @@ function update() {
 
 	
 };
-
-
 
 ///
 /// random utils
@@ -452,6 +495,8 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	}
 
 	object.position = position;
+	//object.useQuaternion = true;
+	//object.quaternion.setFromEuler(rotation, "XYZ");
 	object.rotation = rotation;
 	object.speed = speed;
 	object.speedVal = speed.length();
@@ -462,15 +507,15 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		var ends1 = this.getEndings();
 		var ends2 = object2.getEndings();
 
-		var l1 = new THREE.Vector3().sub(ends1.minus, ends2.minus).length();
-		var l2 = new THREE.Vector3().sub(ends1.plus, ends2.minus).length();
-		var l3 = new THREE.Vector3().sub(ends1.minus, ends2.plus).length();
-		var l4 = new THREE.Vector3().sub(ends1.plus, ends2.plus).length();
-		var l5 = new THREE.Vector3().sub(this.position, ends2.minus).length();
-		var l6 = new THREE.Vector3().sub(this.position, ends2.plus).length();
-		var l7 = new THREE.Vector3().sub(object2.position, ends1.minus).length();
-		var l8 = new THREE.Vector3().sub(object2.position, ends1.plus).length();
-		var l9 = new THREE.Vector3().sub(this.position, object2.position).length();
+		var l1 = new THREE.Vector3().subVectors(ends1.minus, ends2.minus).length();
+		var l2 = new THREE.Vector3().subVectors(ends1.plus, ends2.minus).length();
+		var l3 = new THREE.Vector3().subVectors(ends1.minus, ends2.plus).length();
+		var l4 = new THREE.Vector3().subVectors(ends1.plus, ends2.plus).length();
+		var l5 = new THREE.Vector3().subVectors(this.position, ends2.minus).length();
+		var l6 = new THREE.Vector3().subVectors(this.position, ends2.plus).length();
+		var l7 = new THREE.Vector3().subVectors(object2.position, ends1.minus).length();
+		var l8 = new THREE.Vector3().subVectors(object2.position, ends1.plus).length();
+		var l9 = new THREE.Vector3().subVectors(this.position, object2.position).length();
 
 		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 4 * Math.max(this.radius, object2.radius)) {
 			var t = this.speed.clone();
@@ -516,6 +561,10 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 				this.position.z = -cubeSide / 2;
 			else if(z < 0 && dz <= -cubeSide / 2)
 				this.position.z = cubeSide / 2;
+		}
+
+		if(this.selected) {
+			
 		}
 
 		//for (var i = this.neigbors.length - 1; i >= 0; i--) {
@@ -622,7 +671,7 @@ $(document).ready(function() {
 	//windowHelp.data("kendoWindow").open();
 
 
-            
+			
 
 	$('#checkbox_fps').click(function() {
 		stats.domElement.style.display = $('#checkbox_fps').attr('checked') ? "block" : "none";
@@ -639,6 +688,6 @@ $(document).ready(function() {
 
 	$('#button_start').click(function() {
 		running = !running;
-		$('#button_start').html(running ? 'pause' : 'start');
+		$('#button_start').html(running ? 'пауза' : 'старт');
 	});
 });

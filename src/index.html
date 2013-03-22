@@ -13,6 +13,7 @@
 		<script src="js/stats.js"></script>
 		<script src="js/detector.js"></script>
 		<script src="js/OrbitControls.js"></script>
+		<script src="js/ObjectOrbitControls.js"></script>
 		<script src="js/kendo.web.min.js"></script>
 		<script src="js/main.js"></script>
 		
@@ -32,9 +33,33 @@
 				<label for="input_speed">скорость</label>
 				<br>
 
-				<button id="button_test1" class="k-button">start test 1</button>
-				<button id="button_clear" class="k-button">clear</button>
-				<button id="button_start" class="k-button">start</button>
+				<button id="button_test1" class="k-button">инициализация</button>
+				<button id="button_clear" class="k-button">сброс</button>
+				<button id="button_start" class="k-button">старт</button>
+
+				<br>
+				<br>
+				выделенный объект
+				<br>
+
+				<input id="input_posx" name="input_posx" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_posy" name="input_posy" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_posz" name="input_posz" type="number" value="0" class="k-textbox k-input text">
+				<label for="input_posz">координаты</label>
+				<br>
+
+				<input id="input_rotx" name="input_rotx" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_roty" name="input_roty" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_rotz" name="input_rotz" type="number" value="0" class="k-textbox k-input text">
+				<label for="input_rotz">поворот</label>
+				<br>
+
+				<input id="input_speedx" name="input_speedx" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_speedy" name="input_speedy" type="number" value="0" class="k-textbox k-input text">
+				<input id="input_speedz" name="input_speedz" type="number" value="0" class="k-textbox k-input text">
+				<label for="input_speedz">скорость</label>
+				<br>
+				<button id="button_apply" class="k-button">применить пармаетры</button>
 			</div>
 			<div id="canvas_container"></div>
 		</div>
