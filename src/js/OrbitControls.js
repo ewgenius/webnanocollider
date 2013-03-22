@@ -221,13 +221,13 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		event.preventDefault();
 
-		if ( event.button === 0 ) {
+		if ( event.button === 1 ) {
 
 			state = STATE.ROTATE;
 
 			rotateStart.set( event.clientX, event.clientY );
 
-		} else if ( event.button === 1 ) {
+		} else if ( event.button === -1 ) {
 
 			state = STATE.ZOOM;
 

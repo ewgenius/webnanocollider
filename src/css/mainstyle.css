@@ -17,9 +17,15 @@ html, body {
 		padding: 5px;
 	}
 
+		#toolbox .k-textbox {
+			width: 80px;
+			/*margin-left: 5px;
+			margin-right: 5px;*/
+		}
+
 		#toolbox button {
-			margin-left: 5px;
-			margin-right: 5px;
+			/*margin-left: 5px;
+			margin-right: 5px;*/
 			width: 190px;
 		}
 

@@ -4,8 +4,48 @@
 		"selected_items":
 		[
 			[
+				"sta",
+				"stats"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"st",
+				"stats"
+			],
+			[
+				"obj",
+				"object2"
+			],
+			[
+				"spe",
+				"speed"
+			],
+			[
 				"obje",
 				"object2"
+			],
+			[
+				"spee",
+				"speed"
+			],
+			[
+				"sele",
+				"select"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"speed",
+				"speedInput"
+			],
+			[
+				"con",
+				"container"
 			],
 			[
 				"pause",
@@ -66,10 +106,6 @@
 			[
 				"add",
 				"addParticle"
-			],
-			[
-				"obj",
-				"object"
 			],
 			[
 				"inde",
@@ -260,10 +296,6 @@
 				"atomThikness"
 			],
 			[
-				"spe",
-				"speed"
-			],
-			[
 				"ad",
 				"addObject"
 			],
@@ -387,20 +419,28 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 13702,
-				"line_ending": "Windows"
+				"buffer_size": 15209,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1114,
-				"line_ending": "Windows"
+				"buffer_size": 1520,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/css/mainstyle.css",
+			"settings":
+			{
+				"buffer_size": 472,
+				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/User/chrome.sublime-build",
+	"build_system": "Packages/User/chrome_run.sublime-build",
 	"command_palette":
 	{
 		"height": 309.0,
@@ -428,6 +468,11 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/kendoui/examples/web/window/index.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/modellingframe.html",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/OrbitControls.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/stats.js",
+		"/home/ewgenius/Projects/web/nanocollider/src/js/TrackballControls.js",
 		"/D/Work/Projects/nanocollider/src/js/Nanocollider.js",
 		"/home/ewgenius/Projects/web/chandlerprall-Physijs-5451231/examples/collisions.html",
 		"/home/ewgenius/Projects/workspace/Ardor3D-master/ardor3d-lwjgl/src/test/java/com/ardor3d/input/lwjgl/TestKey.java",
@@ -509,6 +554,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"STATE.ZOOM",
+			"zoomOut",
+			"minimalDistance",
+			"someCollided",
 			"pick",
 			"switch",
 			"selectedObject",
@@ -609,15 +658,15 @@
 					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 13702,
+						"buffer_size": 15209,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								133,
-								133
+								6553,
+								6553
 							]
 						],
 						"settings":
@@ -627,30 +676,63 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 653.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
 					"buffer": 1,
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 1114,
+						"buffer_size": 1520,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								968,
-								968
+								1034,
+								1034
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 91.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/css/mainstyle.css",
+					"settings":
+					{
+						"buffer_size": 472,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								373,
+								373
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -679,11 +761,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -725,7 +814,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 270.0,
+	"side_bar_visible": true,
+	"side_bar_width": 158.0,
 	"status_bar_visible": true
 }
