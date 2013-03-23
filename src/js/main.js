@@ -19,9 +19,10 @@ var height;
 var arena;
 var cubeSide = 20 * unit;
 var physics;
-var physicsOctoDepth = 4;
+var physicsOctoDepth = 3;
 var timeScale = 1;
 var drawingBbox = false;
+var selectedObject = null;
 var stats;
 var cont;
 
@@ -74,7 +75,7 @@ function init(container) {
 	clock = new THREE.Clock(true);
 
 	var resize = function() {
-		width = $(document).width() - 260;
+		width = $(document).width() - 210;
 		height = $(document).height() - 10;
 		renderer.setSize(width, height);
 
@@ -100,7 +101,6 @@ function newWindow() {
 	'<script src="js/stats.js"></script>'+
 	'<script src="js/detector.js"></script>'+
 	'<script src="js/OrbitControls.js"></script>'+
-	'<script src="js/ObjectOrbitControls.js"></script>'+
 	'<script src="js/kendo.web.min.js"></script>'+
 	'<script src="js/main.js">'+
 	'</script></head><body><div id="colliderapp"></div></body></html>';
@@ -132,19 +132,10 @@ function pickObject(x, y) {
 			var object = intersects[0].object;
 			object.select();
 
-			/*objectControls = new THREE.ObjectOrbitControls(object, cont, camera);
-			objectControls.rotateSpeed = 0.5;
-			objectControls.center = object.position;
-			objectControls.enabled = true;*/
-
-			newWindow();
-			
-			controls.enabled = false;
-
 		} else {
-			objectControls = null;
+			//objectControls = null;
 			paused = false;
-			controls.enabled = true;
+			//controls.enabled = true;
 		}
 	}
 };
@@ -293,8 +284,6 @@ function render() {
 function update() {
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 	controls.update();
-	if(objectControls)
-		objectControls.update();
 
 	light.position = camera.position;
 
@@ -306,13 +295,17 @@ function update() {
 	else
 		timeScale = speedInput.value;
 
-	var delta = clock.getDelta() * timeScale;
-	physics.update(delta);
 
-	if(running && !paused)
+
+	var delta = clock.getDelta() * timeScale;
+	
+
+	if(running && !paused) {
+		physics.update(delta);
 		for (var i = 0; i < objects.length; i++) {
 			objects[i].update(delta);
 		}
+	}
 
 	
 };
@@ -439,11 +432,25 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	object.select = function() {
 		this.selected = true;
 		this.visible = true;
+		selectedObject = this;
+
+		$('#input_posx').val(this.position.x);
+		$('#input_posy').val(this.position.y);
+		$('#input_posz').val(this.position.z);
+
+		$('#input_rotx').val(this.rotation.x);
+		$('#input_roty').val(this.rotation.y);
+		$('#input_rotz').val(this.rotation.z);
+
+		$('#input_speedx').val(this.speed.x);
+		$('#input_speedy').val(this.speed.y);
+		$('#input_speedz').val(this.speed.z);
 	};
 
 	object.deselect = function() {
 		this.selected = false;
 		this.visible = false;
+		selectedObject = null;
 	};
 
 	object.getEndings = function() {
@@ -663,15 +670,16 @@ $(document).ready(function() {
 	start();
 	initArena();
 
-	var windowHelp = $("#help_window");
-	/*windowHelp.kendoWindow({
+	var windowHelp = $("#help_window").kendoWindow({
+		draggable: false,
+		resizable: false,
 		width: "600px",
-		title: "About Alvar Aalto"
-	});*/
-	//windowHelp.data("kendoWindow").open();
+		height: "400px",
+		title: "Help"
 
-
-			
+	}).data("kendoWindow");
+	windowHelp.center();
+	windowHelp.open();
 
 	$('#checkbox_fps').click(function() {
 		stats.domElement.style.display = $('#checkbox_fps').attr('checked') ? "block" : "none";
@@ -689,5 +697,23 @@ $(document).ready(function() {
 	$('#button_start').click(function() {
 		running = !running;
 		$('#button_start').html(running ? 'пауза' : 'старт');
+	});
+
+	$('.text').change(function() {
+		if(selectedObject) {
+			try {
+				selectedObject.position.x = $('#input_posx').val();
+				selectedObject.position.y = $('#input_posy').val();
+				selectedObject.position.z = $('#input_posz').val();
+
+				selectedObject.rotation.x = $('#input_rotx').val();
+				selectedObject.rotation.y = $('#input_roty').val();
+				selectedObject.rotation.z = $('#input_rotz').val();
+
+				selectedObject.speed.x = $('#input_speedx').val();
+				selectedObject.speed.y = $('#input_speedy').val();
+				selectedObject.speed.z = $('#input_speedz').val();
+			} catch(e) {};
+		}
 	});
 });

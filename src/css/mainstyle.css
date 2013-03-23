@@ -12,23 +12,24 @@ html, body {
 
 	#toolbox {
 		float: left;
-		width: 260px;
+		width: 200px;
 		/*min-height: 100%;*/
+		font-size: 12px;
 		padding: 5px;
 	}
 
 		#toolbox .k-textbox {
-			width: 50px;
-			height: 30px;
+			width: 60px;
+			height: 25px;
 		}
 
 		#toolbox button {
-			width: 250px;
-			height: 30px;
+			width: 190px;
+			height: 25px;
 		}
 
 		#toolbox .text {
-			width: 50px !important;
+			width: 60px !important;
 		}
 
 	#canvas_container {

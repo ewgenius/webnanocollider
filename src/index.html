@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>nano collider</title>
@@ -13,7 +13,6 @@
 		<script src="js/stats.js"></script>
 		<script src="js/detector.js"></script>
 		<script src="js/OrbitControls.js"></script>
-		<script src="js/ObjectOrbitControls.js"></script>
 		<script src="js/kendo.web.min.js"></script>
 		<script src="js/main.js"></script>
 		
@@ -39,31 +38,31 @@
 
 				<br>
 				<br>
-				выделенный объект
+				<b>выделенный объект</b>
+				<br>
+				<label for="input_posx">координаты</label><br>
+				<input id="input_posx" name="input_posx" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_posy" name="input_posy" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_posz" name="input_posz" type="number" step="0.5" value="0" class="k-textbox k-input text">
 				<br>
 
-				<input id="input_posx" name="input_posx" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_posy" name="input_posy" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_posz" name="input_posz" type="number" value="0" class="k-textbox k-input text">
-				<label for="input_posz">координаты</label>
+				<label for="input_rotx">поворот</label><br>
+				<input id="input_rotx" name="input_rotx" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_roty" name="input_roty" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_rotz" name="input_rotz" type="number" step="0.5" value="0" class="k-textbox k-input text">
 				<br>
-
-				<input id="input_rotx" name="input_rotx" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_roty" name="input_roty" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_rotz" name="input_rotz" type="number" value="0" class="k-textbox k-input text">
-				<label for="input_rotz">поворот</label>
-				<br>
-
-				<input id="input_speedx" name="input_speedx" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_speedy" name="input_speedy" type="number" value="0" class="k-textbox k-input text">
-				<input id="input_speedz" name="input_speedz" type="number" value="0" class="k-textbox k-input text">
-				<label for="input_speedz">скорость</label>
-				<br>
-				<button id="button_apply" class="k-button">применить пармаетры</button>
+				<label for="input_speedx">скорость</label><br>
+				<input id="input_speedx" name="input_speedx" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_speedy" name="input_speedy" type="number" step="0.5" value="0" class="k-textbox k-input text">
+				<input id="input_speedz" name="input_speedz" type="number" step="0.5" value="0" class="k-textbox k-input text">
 			</div>
 			<div id="canvas_container"></div>
 		</div>
 		<div id="help_window">
+
+		</div>
+
+		<div id="renderer_window">
 
 		</div>
 	</body>
