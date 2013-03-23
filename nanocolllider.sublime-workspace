@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"pa",
+				"particles"
+			],
+			[
+				"remo",
+				"removeObject"
+			],
+			[
+				"ob",
+				"object2"
+			],
+			[
+				"obj",
+				"obj1"
+			],
+			[
+				"add",
+				"addNanoObject"
+			],
+			[
+				"obje",
+				"objects"
+			],
+			[
+				"nor",
+				"normVector"
+			],
+			[
+				"ran",
+				"randomNumber"
+			],
+			[
+				"ax",
+				"axe2"
+			],
+			[
 				"wind",
 				"windowHelp"
 			],
@@ -40,16 +76,8 @@
 				"stats"
 			],
 			[
-				"obj",
-				"object2"
-			],
-			[
 				"spe",
 				"speed"
-			],
-			[
-				"obje",
-				"object2"
 			],
 			[
 				"spee",
@@ -120,10 +148,6 @@
 				"removeParticle"
 			],
 			[
-				"add",
-				"addParticle"
-			],
-			[
 				"inde",
 				"index"
 			],
@@ -148,16 +172,8 @@
 				"resetParticles"
 			],
 			[
-				"pa",
-				"particles"
-			],
-			[
 				"bo",
 				"boundingBox"
-			],
-			[
-				"ran",
-				"randomNanoObjects2"
 			],
 			[
 				"are",
@@ -226,10 +242,6 @@
 			[
 				"ii",
 				"initializeHeap"
-			],
-			[
-				"ob",
-				"object"
 			],
 			[
 				"proto",
@@ -435,7 +447,7 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 17375,
+				"buffer_size": 18451,
 				"line_ending": "Unix"
 			}
 		},
@@ -443,7 +455,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 2755,
+				"buffer_size": 2744,
 				"line_ending": "Unix"
 			}
 		},
@@ -451,7 +463,7 @@
 			"file": "src/css/mainstyle.css",
 			"settings":
 			{
-				"buffer_size": 529,
+				"buffer_size": 486,
 				"line_ending": "Unix"
 			}
 		}
@@ -492,6 +504,7 @@
 	},
 	"file_history":
 	[
+		"/home/ewgenius/Projects/web/nanocollider/src/js/main.js",
 		"/home/ewgenius/.config/sublime-text-2/Packages/Web Inspector/swi.sublime-settings",
 		"/home/ewgenius/Projects/web/kendoui/examples/web/slider/index.html",
 		"/home/ewgenius/.config/sublime-text-2/Packages/Web Inspector/Main.sublime-menu",
@@ -587,6 +600,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"interact",
+			"mergeObjects",
+			"intera",
 			"ObjectOr",
 			"input_speed",
 			"select",
@@ -686,7 +702,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -694,15 +710,15 @@
 					"file": "src/js/main.js",
 					"settings":
 					{
-						"buffer_size": 17375,
+						"buffer_size": 18451,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16043,
-								16043
+								18048,
+								18048
 							]
 						],
 						"settings":
@@ -712,7 +728,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 8597.0,
+						"translation.y": 9340.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -722,15 +738,15 @@
 					"file": "src/index.html",
 					"settings":
 					{
-						"buffer_size": 2755,
+						"buffer_size": 2744,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								618,
-								618
+								0,
+								0
 							]
 						],
 						"settings":
@@ -739,7 +755,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -749,15 +765,15 @@
 					"file": "src/css/mainstyle.css",
 					"settings":
 					{
-						"buffer_size": 529,
+						"buffer_size": 486,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								336,
-								336
+								298,
+								298
 							]
 						],
 						"settings":

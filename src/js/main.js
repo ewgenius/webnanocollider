@@ -54,10 +54,6 @@ function init(container) {
 		if(event.button == 0)
 			pickObject(mousex, mousey);
 	});
-
-	//container.onmousemove = function() {
-	//	console.log(event.clientX);
-	//};
 	
 	scene = new THREE.Scene();
 	scene.add(root);
@@ -224,7 +220,7 @@ function initPhysics() {
 			else {
 				for (var i = 0; i < this.particles.length; i++) {
 					var collided = false;
-					for (var j = 0; j < i; j++) {
+					for (var j = i + 1; j < this.particles.length; j++) {
 						collided = collided || this.particles[i].interact(this.particles[j]);
 
 					}
@@ -314,15 +310,21 @@ function update() {
 /// random utils
 ///
 
+function normVector(v) {
+	v.x = Math.floor(v.x * 1000) / 1000;
+	v.y = Math.floor(v.y * 1000) / 1000;
+	v.z = Math.floor(v.z * 1000) / 1000;
+};
+
 function randomNumber(min, max) {
-	return Math.random() * (max - min) + min;
+	return Math.floor(100 * (Math.random() * (max - min) + min)) / 100;
 };
 
 function randomVector(length) {
 	var v = new THREE.Vector3(
-		Math.random() * 2 - 1,
-		Math.random() * 2 - 1,
-		Math.random() * 2 - 1
+		randomNumber(0, 2),
+		randomNumber(0, 2),
+		randomNumber(0, 2)
 		);
 	
 	return v.normalize().multiplyScalar(length);
@@ -410,8 +412,35 @@ function removeOthers(obj1, obj2) {
 	}
 };
 
+function mergeObjects(obj1, obj2) {
+	var n = obj1.n + obj2.n;
+	var position = new THREE.Vector3();
+	position.copy(obj1.position);
+	position.add(obj2.position.sub(obj1.position).multiplyScalar(0.5));
+	var speed = obj1.speed.add(obj2.speed);
+	
+	addNanoObject(position, obj1.rotation.clone(), speed, n, obj1.m, obj1.d);
+	//addNanoObject(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), 10, 5, 1);
+
+	removeObject(obj1);
+	removeObject(obj2);
+};
+
+function removeObject(obj) {
+	root.remove(obj);
+	//objects.pop(obj);
+	var i = objects.indexOf(obj);
+	var a1 = objects.slice(0, i);
+	var a2 = objects.slice(i + 1);
+	objects = a1.concat(a2);
+	obj = null;
+};
+
 function addNanoObject(position, rotation, speed, n, m, d) {
 	var object = new THREE.Mesh();
+	object.n = n;
+	object.m = m;
+	object.d = d;
 	var length = Math.floor((n - 1) / 2) * 1.5 * d + (n - 1) % 2 * d / 2;
 	var a = 2 * Math.PI / m;
 	var radius = d / (2 * Math.sin(a / 4));
@@ -514,6 +543,8 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		var ends1 = this.getEndings();
 		var ends2 = object2.getEndings();
 
+
+
 		var l1 = new THREE.Vector3().subVectors(ends1.minus, ends2.minus).length();
 		var l2 = new THREE.Vector3().subVectors(ends1.plus, ends2.minus).length();
 		var l3 = new THREE.Vector3().subVectors(ends1.minus, ends2.plus).length();
@@ -524,10 +555,21 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		var l8 = new THREE.Vector3().subVectors(object2.position, ends1.plus).length();
 		var l9 = new THREE.Vector3().subVectors(this.position, object2.position).length();
 
-		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 4 * Math.max(this.radius, object2.radius)) {
-			var t = this.speed.clone();
-			this.speed = object2.speed.clone();
-			object2.speed = t;
+		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 2 * Math.max(this.radius, object2.radius)) {
+
+			var axe1 = new THREE.Vector3().subVectors(ends1.plus, ends1.minus);
+			var axe2 = new THREE.Vector3().subVectors(ends2.plus, ends2.minus);
+
+			if(true){//axe1.cross(axe2).length() < 1) {
+				mergeObjects(this, object2)
+				return true;
+			}
+				//paused = true;
+			else {
+				var t = this.speed.clone();
+				this.speed = object2.speed.clone();
+				object2.speed = t;
+			}
 			return true;
 		}
 		else
@@ -544,6 +586,10 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	};
 
 	object.update = function(delta) {
+		normVector(this.position);
+		normVector(this.rotation);
+		normVector(this.speed);
+
 		this.updateBboxProection();
 
 		if(arena) {
@@ -591,8 +637,9 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 
 function clear() {
 	for (var i = objects.length - 1; i >= 0; i--) {
-		root.remove(objects[i]);
-		objects[i] = null;
+		//root.remove(objects[i]);
+		//objects[i] = null;
+		removeObject(objects[i]);
 	};
 	objects = [];
 	//scene.remove(arena);
@@ -638,7 +685,7 @@ function randomNanoObjects2(n) {
 		for(var i = 0; i < n; i++) {
 			for(var j = 0; j < n; j++) {
 				var position = new THREE.Vector3(sign == 1 ? cubeSide / 4 : -cubeSide / 3, i - n / 2, j - n / 2);
-				var rotation = new THREE.Vector3(0, 0, sign * Math.PI / 2);
+				var rotation = new THREE.Vector3(0, 0, (sign * Math.PI / 2).toFixed(3));
 				
 				var m = new THREE.Matrix4();
 				m.setRotationFromEuler(rotation, "XYZ");
@@ -688,6 +735,7 @@ $(document).ready(function() {
 	$('#button_test1').click(function() {
 		var n = $('#input_number')[0].value;
 		randomNanoObjects1(n, 10 * unit);
+		//randomNanoObjects2(n);
 	});
 
 	$('#button_clear').click(function() {
@@ -712,7 +760,8 @@ $(document).ready(function() {
 
 				selectedObject.speed.x = $('#input_speedx').val();
 				selectedObject.speed.y = $('#input_speedy').val();
-				selectedObject.speed.z = $('#input_speedz').val();
+				selectedObject.speed.z = $('#input_speedz').val();			
+
 			} catch(e) {};
 		}
 	});
