@@ -166,7 +166,7 @@ function newWindow() {
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();		
 		}());
-}
+	}
 };
 
 function pickObject(x, y) {
@@ -184,6 +184,10 @@ function pickObject(x, y) {
 			//paused = true;
 			var object = intersects[0].object;
 			object.select();
+			//controls.center = selectedObject.position;
+			controls.center.copy(selectedObject.position);
+
+
 			//newWindow();
 
 		} else {
@@ -259,9 +263,9 @@ function initPhysics() {
 			var position = object.position;
 			var distance = size / 2;
 			if(
-				(position.x > this.localPos.x - distance) && (position.x < this.localPos.x + distance) &&
-				(position.y > this.localPos.y - distance) && (position.y < this.localPos.y + distance) &&
-				(position.z > this.localPos.z - distance) && (position.z < this.localPos.z + distance))
+				(position.x > this.localPos.x - distance) && (position.x <= this.localPos.x + distance) &&
+				(position.y > this.localPos.y - distance) && (position.y <= this.localPos.y + distance) &&
+				(position.z > this.localPos.z - distance) && (position.z <= this.localPos.z + distance))
 				if(this.children)
 					for (var i = this.children.length - 1; i >= 0; i--) {
 						this.children[i].checkPosition(object);
@@ -882,7 +886,9 @@ $(document).ready(function() {
 
 				normVector(selectedObject.position);
 				normVector(selectedObject.rotation);
-				normVector(selectedObject.speed);		
+				normVector(selectedObject.speed);
+
+				physics.update();	
 
 			} catch(e) {};
 		}
