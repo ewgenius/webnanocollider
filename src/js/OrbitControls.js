@@ -244,7 +244,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 			zoomStart.set( event.clientX, event.clientY );
 
-		} else if ( event.button === 2 ) {
+		} else if ( event.button === -2 ) {
 
 			state = STATE.PAN;
 

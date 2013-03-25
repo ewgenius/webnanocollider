@@ -7,13 +7,15 @@ var light;
 var clock;
 var objects = [];
 var objectCollided = [];
+var mode = 0; // 0 - root, 1 - rootLocal
 var root = new THREE.Object3D();
-var physicsNode = new THREE.Object3D();
+var rootLocal = new THREE.Object3D();
 var running = false;
 var paused = false;
 var projector;
 var unit = 1;
-var objectsSegments = 10;
+var scale = 1;
+var objectsSegments = 3;
 var width;
 var height;
 var arena;
@@ -48,11 +50,13 @@ function init(container) {
 	container.appendChild(renderer.domElement);
 
 	$(container).click(function() {
+		$('input').blur();
 		var p = getPos(container);
 		var mousex = ((event.clientX - p.x) / width) * 2 - 1;
 		var mousey = -((event.clientY - p.y) / height) * 2 + 1;
 		if(event.button == 0)
 			pickObject(mousex, mousey);
+
 	});
 	
 	scene = new THREE.Scene();
@@ -61,55 +65,108 @@ function init(container) {
 	camera.position = new THREE.Vector3(10, 10, 10);
 	camera.name = "camera";
 
-
-	controls = new THREE.OrbitControls(camera, container);
-	controls.rotateSpeed = 0.5;
-	controls.userPanSpeed = 0.2;
-	controls.enabled = true;
+	initControls(container);
 
 	controls.addEventListener('change', render);
 	clock = new THREE.Clock(true);
 
-	var resize = function() {
-		width = $(document).width() - 210;
-		height = $(document).height() - 10;
-		renderer.setSize(width, height);
+	resizeRenderer(container);
 
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-	}
 
-	resize();
+/*/
+	rootLocal.add(drawLine(new THREE.Vector3(), new THREE.Vector3(scale, 0, 0), 0xff0000));
+	rootLocal.add(drawLine(new THREE.Vector3(), new THREE.Vector3(0, scale, 0), 0x00ff00));
+	rootLocal.add(drawLine(new THREE.Vector3(), new THREE.Vector3(0, 0, scale), 0x0000ff));
+	var l = new THREE.PointLight(0x333333);
+	l.position.set(10, 10, 10);
+	rootLocal.add(l);
+
+/*/
+
 	$(window).resize(function() {
-		resize();
+		resizeRenderer(container);
 	});
 
 	initPhysics();
 };
 
-var frame;
-function newWindow() {
-	frame =  window.open('','window','width=600, height=600');
-	var html = 
-	'<html><head><title></title>'+
-	'<script src="js/jquery.min.js"></script>'+
-	'<script src="js/three.js"></script>'+
-	'<script src="js/stats.js"></script>'+
-	'<script src="js/detector.js"></script>'+
-	'<script src="js/OrbitControls.js"></script>'+
-	'<script src="js/kendo.web.min.js"></script>'+
-	'<script src="js/main.js">'+
-	'</script></head><body><div id="colliderapp"></div></body></html>';
-	frame.document.open();
-	frame.document.write(html);
-	$(frame.document).ready(function() {
-		frame.document.init = init;
+function drawLine(x, y, color) {
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(x);
+	geometry.vertices.push(y);
+	var material = new THREE.LineBasicMaterial({color: color});
+	var mesh = new THREE.Line(geometry, material);
+	return mesh;
+};
 
-		frame.document.init(document.body);
-		//frame.document.start();
-		//frame.document.initArena();
-	});
-	frame.document.close();
+function initControls(c) {
+	controls = null;
+	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls.rotateSpeed = 0.5;
+	controls.userPanSpeed = 0.1;
+	controls.enabled = true;
+};
+
+function resizeRenderer(container) {
+	width = $(container).width();
+	height = $(container).height();
+	renderer.setSize(width, height);
+
+	camera.aspect = width / height;
+	camera.updateProjectionMatrix();
+};
+
+var windowRenderer;
+function newWindow() {
+	if(selectedObject) {
+		selectedObject.scalePlus();
+		var windowContainer = $("#renderer_window");
+		 windowRenderer = windowContainer.kendoWindow({
+			//draggable: false,
+			resizable: false,
+			//width: ($(document).width() - 40) + "px",
+			//height: ($(document).height() - 100) + "px",
+			width: ($(cont).width()) + "px",
+			height: ($(cont).height() - 100) + "px",
+			title: "Renderer",
+			close: function() {
+				// reactivating normal render mode
+				scene.remove(rootLocal);
+				scene.add(root);
+				scene.add(physics.octoTree.mesh);
+				scene.add(arena);
+				if(selectedObject)
+					if(selectedObject.scalled)
+						selectedObject.scaleMinus(); //deselect();
+
+				//paused = false;
+
+				cont.appendChild(renderer.domElement);
+				initControls(windowContainer);
+				resizeRenderer(cont);
+			}
+
+		}).data("kendoWindow");
+
+		windowContainer[0].appendChild(renderer.domElement);
+		windowRenderer.center();
+		windowRenderer.open();
+		initControls(cont);
+		controls.center = selectedObject.getParePosition();
+
+		scene.remove(root);
+		scene.remove(physics.octoTree.mesh);
+		scene.remove(arena);
+		scene.add(rootLocal);
+
+		(function() {
+			width = windowContainer.width() - 15;
+			height = windowContainer.height() - 16;
+			renderer.setSize(width, height);
+			camera.aspect = width / height;
+			camera.updateProjectionMatrix();		
+		}());
+}
 };
 
 function pickObject(x, y) {
@@ -124,9 +181,10 @@ function pickObject(x, y) {
 		};
 
 		if (intersects.length > 0) {
-			paused = true;
+			//paused = true;
 			var object = intersects[0].object;
 			object.select();
+			//newWindow();
 
 		} else {
 			//objectControls = null;
@@ -218,12 +276,10 @@ function initPhysics() {
 				for (var i = this.children.length - 1; i >= 0; i--) 
 					this.children[i].update();
 			else {
+				var collided = false;
 				for (var i = 0; i < this.particles.length; i++) {
-					var collided = false;
-					for (var j = i + 1; j < this.particles.length; j++) {
+					for (var j = i + 1; j < this.particles.length; j++)
 						collided = collided || this.particles[i].interact(this.particles[j]);
-
-					}
 				}
 				this.mesh.visible = collided;
 			}
@@ -257,7 +313,7 @@ function initPhysics() {
 function start() {
 	light = new THREE.PointLight(0xFFFF00);
 	light.position.set(cubeSide, cubeSide, cubeSide);
-	root.add(light);
+	scene.add(light);
 
 	var ambientLight = new THREE.AmbientLight(0x333333);
 	scene.add(ambientLight);
@@ -317,14 +373,14 @@ function normVector(v) {
 };
 
 function randomNumber(min, max) {
-	return Math.floor(100 * (Math.random() * (max - min) + min)) / 100;
+	return Math.floor(1000 * (Math.random() * (max - min) + min)) / 1000;
 };
 
 function randomVector(length) {
 	var v = new THREE.Vector3(
-		randomNumber(0, 2),
-		randomNumber(0, 2),
-		randomNumber(0, 2)
+		randomNumber(-1, 2),
+		randomNumber(-1, 2),
+		randomNumber(-1, 2)
 		);
 	
 	return v.normalize().multiplyScalar(length);
@@ -414,20 +470,28 @@ function removeOthers(obj1, obj2) {
 
 function mergeObjects(obj1, obj2) {
 	var n = obj1.n + obj2.n;
-	var position = new THREE.Vector3();
-	position.copy(obj1.position);
-	position.add(obj2.position.sub(obj1.position).multiplyScalar(0.5));
-	var speed = obj1.speed.add(obj2.speed);
+	var newposition = new THREE.Vector3();
+	newposition.copy(obj1.position);
+	newposition.add(obj2.position.sub(obj1.position).multiplyScalar(0.5));
+	var newspeed = obj1.speed.addVectors(obj1.speed, obj2.speed);
 	
-	addNanoObject(position, obj1.rotation.clone(), speed, n, obj1.m, obj1.d);
+	var obj = addNanoObject(newposition, obj1.rotation.clone(), newspeed, n, obj1.m, obj1.d);
 	//addNanoObject(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), 10, 5, 1);
+
+	if(obj1.scalled) {
+		obj.select();
+		obj.scalePlus();
+	}
 
 	removeObject(obj1);
 	removeObject(obj2);
+
+
 };
 
 function removeObject(obj) {
 	root.remove(obj);
+	rootLocal.remove(obj);
 	//objects.pop(obj);
 	var i = objects.indexOf(obj);
 	var a1 = objects.slice(0, i);
@@ -449,10 +513,11 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 
 	object.radius = radius;
 	object.length = length;
-	object.scalled = false;
+	object.scalled = true;
 	object.node = null;
 	object.bbproection = null;
 	object.selected = false;
+	object.tempPosition = new THREE.Vector3();
 
 	object.reset = function() {
 		this.remove(body);
@@ -462,6 +527,10 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		this.selected = true;
 		this.visible = true;
 		selectedObject = this;
+
+		//normVector(this.position);
+		//normVector(this.rotation);
+		//normVector(this.speed);
 
 		$('#input_posx').val(this.position.x);
 		$('#input_posy').val(this.position.y);
@@ -474,6 +543,18 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		$('#input_speedx').val(this.speed.x);
 		$('#input_speedy').val(this.speed.y);
 		$('#input_speedz').val(this.speed.z);
+	};
+
+	object.getParePosition = function() {
+		if(this.pare) {
+			var v2 = this.pare.position.clone();
+			v2.sub(this.position);
+			var v3 = this.position.clone().add(v2.multiplyScalar(0.5));
+			return v3;
+		}
+		else
+			return this.position.clone();
+
 	};
 
 	object.deselect = function() {
@@ -493,22 +574,48 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	};
 
 	object.scalePlus = function() {
-		this.scalled = true;
-		this.reset();
-		body = Nanotube(n, m, d);
-		object.add(body);
+		if(!this.scalled) {
+			this.tempPosition.copy(this.position);
+			//this.position.sub(this.node.localPos);
+			this.position.multiplyScalar(scale);
+
+			this.scalled = true;
+			this.reset();
+
+			body = Nanotube(n, m, d * scale);
+			object.add(body);
+
+			rootLocal.add(this);
+
+			if(this.pare) {
+				this.pare.scalePlus();
+			}
+		}
 	};
 
 	object.scaleMinus = function() {
-		this.scalled = false;
-		this.reset();
-		body = new THREE.Mesh(
-		new THREE.CylinderGeometry(radius, radius, length, objectsSegments, false),
-		new THREE.MeshLambertMaterial({color: 0xff0000}));
-		body.geometry.computeBoundingBox();
-		bbox = body.geometry.boundingBox;
-		this.bbox = bbox;
-		object.add(body);
+		if(this.scalled) {
+			if(this.tempPosition)
+				this.position.copy(this.tempPosition);
+			this.scalled = false;
+			this.reset();
+			body = new THREE.Mesh(
+			new THREE.CylinderGeometry(radius, radius, length, objectsSegments, false),
+			new THREE.MeshLambertMaterial({color: 0xff0000}));
+			body.geometry.computeBoundingBox();
+			bbox = body.geometry.boundingBox;
+			this.bbox = bbox;
+			object.add(body);
+
+
+			root.add(this);
+
+			if(this.pare) {
+				this.pare.scaleMinus();
+			}
+		}
+
+		
 	};
 
 	object.scaleMinus();
@@ -538,12 +645,11 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	object.speedVal = speed.length();
 	object.neigbors = [];
 	object.collisionCalculated = false;
+	object.pare = null;
 
 	object.interact = function(object2) {
 		var ends1 = this.getEndings();
 		var ends2 = object2.getEndings();
-
-
 
 		var l1 = new THREE.Vector3().subVectors(ends1.minus, ends2.minus).length();
 		var l2 = new THREE.Vector3().subVectors(ends1.plus, ends2.minus).length();
@@ -555,25 +661,34 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 		var l8 = new THREE.Vector3().subVectors(object2.position, ends1.plus).length();
 		var l9 = new THREE.Vector3().subVectors(this.position, object2.position).length();
 
-		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 2 * Math.max(this.radius, object2.radius)) {
+		if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 10 * Math.max(this.radius, object2.radius)) {
+			this.pare = object2;
+			object2.pare = this;
 
-			var axe1 = new THREE.Vector3().subVectors(ends1.plus, ends1.minus);
-			var axe2 = new THREE.Vector3().subVectors(ends2.plus, ends2.minus);
 
-			if(true){//axe1.cross(axe2).length() < 1) {
-				mergeObjects(this, object2)
-				return true;
+			if(Math.min(l1, l2, l3, l4, l5, l6, l7, l8, l9) < 4 * Math.max(this.radius, object2.radius)) {
+
+				var axe1 = new THREE.Vector3().subVectors(ends1.plus, ends1.minus);
+				var axe2 = new THREE.Vector3().subVectors(ends2.plus, ends2.minus);
+
+				if(axe1.cross(axe2).length() < 1) {
+					mergeObjects(this, object2)
+				}
+				else {
+					var t = this.speed.clone();
+					this.speed = object2.speed.clone();
+					object2.speed = t;
+				}
+				
 			}
-				//paused = true;
-			else {
-				var t = this.speed.clone();
-				this.speed = object2.speed.clone();
-				object2.speed = t;
-			}
+
 			return true;
-		}
-		else
+
+		} else {
+			this.pare = null;
+			object2.pare = null;
 			return false;
+		}
 	};
 
 	object.updateBboxProection = function() {
@@ -586,10 +701,6 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	};
 
 	object.update = function(delta) {
-		normVector(this.position);
-		normVector(this.rotation);
-		normVector(this.speed);
-
 		this.updateBboxProection();
 
 		if(arena) {
@@ -633,6 +744,8 @@ function addNanoObject(position, rotation, speed, n, m, d) {
 	//object.update();
 	objects.push(object);
 	root.add(object);
+
+	return object;
 };
 
 function clear() {
@@ -676,6 +789,7 @@ function randomNanoObjects1(n, radius) {
 			6,
 			0.05);
 	}
+	physics.update();
 };
 
 function randomNanoObjects2(n) {
@@ -717,7 +831,7 @@ $(document).ready(function() {
 	start();
 	initArena();
 
-	var windowHelp = $("#help_window").kendoWindow({
+	/*var windowHelp = $("#help_window").kendoWindow({
 		draggable: false,
 		resizable: false,
 		width: "600px",
@@ -726,7 +840,7 @@ $(document).ready(function() {
 
 	}).data("kendoWindow");
 	windowHelp.center();
-	windowHelp.open();
+	windowHelp.open();*/
 
 	$('#checkbox_fps').click(function() {
 		stats.domElement.style.display = $('#checkbox_fps').attr('checked') ? "block" : "none";
@@ -735,7 +849,7 @@ $(document).ready(function() {
 	$('#button_test1').click(function() {
 		var n = $('#input_number')[0].value;
 		randomNanoObjects1(n, 10 * unit);
-		//randomNanoObjects2(n);
+		randomNanoObjects2(1);
 	});
 
 	$('#button_clear').click(function() {
@@ -744,7 +858,11 @@ $(document).ready(function() {
 
 	$('#button_start').click(function() {
 		running = !running;
-		$('#button_start').html(running ? 'пауза' : 'старт');
+		$('#button_start').html(running ? 'pause' : 'start');
+	});
+
+	$('#button_show').click(function() {
+		newWindow();
 	});
 
 	$('.text').change(function() {
@@ -760,7 +878,11 @@ $(document).ready(function() {
 
 				selectedObject.speed.x = $('#input_speedx').val();
 				selectedObject.speed.y = $('#input_speedy').val();
-				selectedObject.speed.z = $('#input_speedz').val();			
+				selectedObject.speed.z = $('#input_speedz').val();	
+
+				normVector(selectedObject.position);
+				normVector(selectedObject.rotation);
+				normVector(selectedObject.speed);		
 
 			} catch(e) {};
 		}

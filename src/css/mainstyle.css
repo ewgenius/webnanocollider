@@ -33,7 +33,13 @@ html, body {
 		}
 
 	#canvas_container {
+		background-color: #000000;
 		float: left;
-		width : 600px;
+		width : 700px;
 		min-height: 600px;
 	}
+
+#renderer_window {
+	background-color: #000000;
+	padding: 0px !important;
+}
