@@ -18,10 +18,14 @@ html, body {
 		padding: 5px;
 	}
 
-		#toolbox .k-textbox {
+		#toolbox .textbox {
 			width: 60px;
 			height: 25px;
 		}
+
+		/*#toolbox .combo {
+			width: 180px !important;
+		}*/
 
 		#toolbox button {
 			width: 190px;
@@ -33,10 +37,10 @@ html, body {
 		}
 
 	#canvas_container {
-		background-color: #000000;
+		/*background-color: #000000;*/
 		float: left;
-		width : 700px;
-		min-height: 600px;
+		width : 1000px;
+		min-height: 740px;
 	}
 
 #renderer_window {
