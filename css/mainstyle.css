@@ -1,49 +1,49 @@
 html, body {
-	margin: 0px;
-	height: 100%;
-	min-height: 100%;
+    margin: 0px;
+    height: 100%;
+    min-height: 100%;
 }
 
 #colliderapp {
-	width: 100%;
-	min-height: 600px;
-	height: 600px;
+    width: 100%;
+    min-height: 600px;
+    height: 600px;
 }
 
-	#toolbox {
-		float: left;
-		width: 200px;
-		/*min-height: 100%;*/
-		font-size: 12px;
-		padding: 5px;
-	}
+#toolbox {
+    float: left;
+    width: 200px;
+    /*min-height: 100%;*/
+    font-size: 12px;
+    padding: 5px;
+}
 
-		#toolbox .textbox {
-			width: 60px;
-			height: 25px;
-		}
+#toolbox .textbox {
+    width: 60px;
+    height: 25px;
+}
 
-		/*#toolbox .combo {
-			width: 180px !important;
-		}*/
+/*#toolbox .combo {
+    width: 180px !important;
+}*/
 
-		#toolbox button {
-			width: 190px;
-			height: 25px;
-		}
+#toolbox button {
+    width: 190px;
+    height: 25px;
+}
 
-		#toolbox .text {
-			width: 60px !important;
-		}
+#toolbox .text {
+    width: 60px !important;
+}
 
-	#canvas_container {
-		/*background-color: #000000;*/
-		float: left;
-		width : 1000px;
-		min-height: 740px;
-	}
+#canvas_container {
+    /*background-color: #000000;*/
+    float: left;
+    width: 1000px;
+    min-height: 740px;
+}
 
 #renderer_window {
-	background-color: #000000;
-	padding: 0px !important;
+    background-color: #000000;
+    padding: 0px !important;
 }
