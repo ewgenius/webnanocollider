@@ -2,12 +2,17 @@ html, body {
     margin: 0px;
     height: 100%;
     min-height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.green {
+    background-color: #0f0;
 }
 
 #colliderapp {
     width: 100%;
-    min-height: 600px;
-    height: 600px;
+    min-height: 500px;
+    height: 500px;
 }
 
 #toolbox {
@@ -40,7 +45,7 @@ html, body {
     /*background-color: #000000;*/
     float: left;
     width: 1000px;
-    min-height: 740px;
+    min-height: 600px;
 }
 
 #renderer_window {
